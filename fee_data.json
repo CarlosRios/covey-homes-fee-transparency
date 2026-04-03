@@ -1,0 +1,148 @@
+{
+  "property": {
+    "name": "Covey Homes Tallahassee",
+    "address": "1497 Wooster Drive, Tallahassee, FL 32311",
+    "phone": "580.809.6034",
+    "website": "coveyhomestallahassee.com",
+    "last_updated": "2/2026"
+  },
+  "application_fees": {
+    "application_fee": {
+      "amount": 75,
+      "unit": "per applicant"
+    },
+    "administrative_fee": {
+      "amount": 250,
+      "unit": "per unit",
+      "note": "If renter is approved conditionally, may be subject to additional requirements."
+    },
+    "security_deposit": {
+      "two_bedrooms": 650,
+      "three_bedrooms": 750
+    }
+  },
+  "pets": {
+    "max_pets": 3,
+    "breed_restrictions": true,
+    "weight_restriction": false,
+    "one_time_pet_fee": {
+      "one_pet": 350,
+      "two_pets": 600,
+      "three_pets": 850,
+      "refundable": false
+    },
+    "monthly_pet_rent": {
+      "amount": 25,
+      "unit": "per pet"
+    }
+  },
+  "utilities": {
+    "program": "MORE Smooth Move",
+    "program_description": "All major utilities are already set up before you move in. No utility deposits, no scheduling service calls, and no waiting around for activation.",
+    "electric": "Varies by usage",
+    "water_sewer": "Varies by usage",
+    "trash_removal": "Varies by usage",
+    "internet_wifi": {
+      "amount": 70,
+      "unit": "per month",
+      "note": "Internet and cable not provided separately."
+    },
+    "utility_billing_admin_fee": {
+      "amount": 16,
+      "unit": "per unit / month",
+      "note": "Also charged at account set-up and final billing."
+    }
+  },
+  "livemore_bundle": {
+    "amount": 115,
+    "unit": "per month",
+    "includes": [
+      "Smart Home Technology",
+      "Landscape Care",
+      "Amenity Access",
+      "Pest Control"
+    ]
+  },
+  "rent_reporting": {
+    "provider": "Homebody Rent Reporting",
+    "trial_period_days": 30,
+    "trial_cost": 0,
+    "single_leaseholder": {
+      "amount": 8.95,
+      "unit": "per month"
+    },
+    "multiple_leaseholders": {
+      "amount": 14.95,
+      "unit": "per month"
+    },
+    "note": "Residents are automatically enrolled in a complimentary 30-day trial. Service continues after trial unless canceled."
+  },
+  "situational_fees": {
+    "transfer_fee": {
+      "amount": 500,
+      "refundable": false
+    },
+    "early_lease_termination": {
+      "amount": "1 month's rent",
+      "refundable": false
+    },
+    "late_fee": {
+      "amount": "10% of one month's rent"
+    },
+    "nsf_returned_payment_fee": {
+      "amount": 75
+    },
+    "lease_violation": {
+      "amount_min": 25,
+      "amount_max": 150
+    },
+    "forced_renters_insurance": {
+      "amount_min": 15,
+      "amount_max": 25,
+      "unit": "per month"
+    },
+    "legal_eviction_fees": {
+      "amount": "Varies"
+    },
+    "credit_card_processing_fee": {
+      "amount": "Varies"
+    },
+    "replacement_key": {
+      "amount": 5,
+      "unit": "per key",
+      "refundable": false
+    },
+    "additional_access_fob": {
+      "amount": 15
+    }
+  },
+  "parking": {
+    "dedicated_spaces_per_home": 2,
+    "types": ["Garage", "Driveway"],
+    "rules": [
+      "Garage must be used to park an operable vehicle.",
+      "No street parking unless specifically designated.",
+      "Additional parking may be available at the community for an added monthly fee.",
+      "Select homes may have an extended driveway."
+    ]
+  },
+  "qualifying_criteria": [
+    "Gross household income of 3x the monthly rent",
+    "Favorable credit history for all applicants",
+    "Satisfactory rental history",
+    "Identity verification, criminal background, and credit check for every lease-holding resident 18 years of age or older",
+    "All adult applicants must be qualified lease holders and sign the lease agreement"
+  ],
+  "move_in_requirements": [
+    "Pay first month's rent and any other move-in monies owed (certified funds required)",
+    "Renter's insurance declaration page with appropriate insurance coverage and your address",
+    "Security deposit due at time of lease signing"
+  ],
+  "application_steps": [
+    "Apply online",
+    "Pay application and administrative fee at time of application",
+    "Submit proof of income (authenticity will be verified)",
+    "All adult applicants must be qualified lease holders and sign the lease",
+    "Security deposit due at time of lease signing"
+  ]
+}

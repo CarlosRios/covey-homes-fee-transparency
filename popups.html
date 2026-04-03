@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Covey Homes — Fee Transparency Popups</title>
+  <link rel="stylesheet" href="page.css" />
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       HERO + HEADER
+       ════════════════════════════════════════════════════════ -->
+  <div class="site-hero">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a href="popups.html" class="site-header__logo">
+          <img src="images/logo.svg" alt="Covey Homes" />
+        </a>
+        <nav class="site-header__nav">
+          <a href="popups.html" class="nav-btn nav-btn--active">Popups</a>
+          <a href="sections.html" class="nav-btn">Fees Sections</a>
+        </nav>
+      </div>
+    </header>
+    <div class="site-hero__content">
+      <h1 class="site-hero__title">Fee Transparency Popups</h1>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 1 — Pop-up Preview: Cost Calculator
+       ════════════════════════════════════════════════════════ -->
+  <section class="popup-preview" id="preview-calculator">
+    <div class="popup-preview__label">Layout A</div>
+    <div class="popup-backdrop">
+      <div class="popup-dialog popup-dialog--calculator">
+        <button class="popup-close" aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+
+        <div class="calc-layout">
+          <div class="calc-left">
+            <div class="calc-screenshot">
+              <img src="images/pricing-transparency-covey.webp" alt="Fee transparency preview" />
+            </div>
+          </div>
+          <div class="calc-right">
+            <span class="calc-eyebrow">A New Standard in Pricing</span>
+            <h2 class="calc-headline">We're making all fees<br />transparent.</h2>
+            <p class="calc-body">Before you sign anything, you'll see every mandatory fee rolled into one Total Monthly Leasing Price. No fine print, no surprises on move-in day — just an honest look at what your home actually costs each month.</p>
+            <button class="calc-cta">Got It</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 2 — Pop-up Preview: Floorplan Card
+       ════════════════════════════════════════════════════════ -->
+  <section class="popup-preview" id="preview-floorplan">
+    <div class="popup-preview__label">Layout B</div>
+    <div class="popup-backdrop">
+      <div class="popup-dialog popup-dialog--stacked">
+        <button class="popup-close" aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+
+        <div class="stacked-content">
+          <span class="calc-eyebrow">A New Standard in Pricing</span>
+          <h2 class="stacked-headline">We're making all fees<br />transparent.</h2>
+          <p class="stacked-body">Before you sign anything, you'll see every mandatory fee rolled into one Total Monthly Leasing Price. No fine print, no surprises on move-in day — just an honest look at what your home actually costs each month.</p>
+          <button class="stacked-cta">Got It</button>
+        </div>
+        <div class="stacked-screenshot">
+          <img src="images/pricing-transparency-covey.webp" alt="Fee transparency preview" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
