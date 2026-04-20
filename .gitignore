@@ -4,3 +4,15 @@
 *~
 .vscode/
 .idea/
+
+# Secrets — never commit
+.env
+.env.local
+.env.*.local
+
+# Playwright MCP local captures
+.playwright-mcp/
+pricing-expanded.yml
+
+# Raw API dumps from local fetch script
+scripts/entrata-debug.json
