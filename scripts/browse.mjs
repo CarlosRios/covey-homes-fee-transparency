@@ -7,9 +7,9 @@
 // Keeps the API key server-side; the browser only talks to this server.
 
 import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const PORT = Number(process.env.PORT || 3001);
@@ -22,6 +22,24 @@ if (!BASE_URL || !API_KEY) {
 }
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const PROJECT_ROOT = resolve(__dirname, '..');
+
+const MIME = {
+  '.html': 'text/html; charset=utf-8',
+  '.css':  'text/css; charset=utf-8',
+  '.js':   'text/javascript; charset=utf-8',
+  '.mjs':  'text/javascript; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.svg':  'image/svg+xml',
+  '.png':  'image/png',
+  '.jpg':  'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.woff':  'font/woff',
+  '.woff2': 'font/woff2',
+  '.ttf':   'font/ttf',
+  '.otf':   'font/otf',
+};
 
 async function entrata(resource, methodName, params = {}, version) {
   const url = `${BASE_URL.replace(/\/$/, '')}/${resource}`;
@@ -57,6 +75,18 @@ function sendJson(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
+// Simple in-memory TTL cache. Only used for the property list (changes rarely).
+// Per-property fees are intentionally *not* cached so every selection hits Entrata fresh.
+const cache = new Map();
+async function memoize(key, ttlMs, fn) {
+  const now = Date.now();
+  const hit = cache.get(key);
+  if (hit && hit.expiresAt > now) return hit.value;
+  const value = await fn();
+  cache.set(key, { value, expiresAt: now + ttlMs });
+  return value;
+}
+
 // Entrata takes dates in MM/DD/YYYY. The HTML date input gives YYYY-MM-DD.
 function isoToUsDate(iso) {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
@@ -75,9 +105,12 @@ const server = createServer(async (req, res) => {
     }
 
     if (url.pathname === '/api/properties') {
-      const data = await entrata('properties', 'getProperties', {});
-      const list = data?.response?.result?.PhysicalProperty?.Property ?? [];
-      sendJson(res, 200, Array.isArray(list) ? list : [list]);
+      const list = await memoize('properties:list', 60 * 60 * 1000, async () => {
+        const data = await entrata('properties', 'getProperties', {});
+        const raw = data?.response?.result?.PhysicalProperty?.Property ?? [];
+        return Array.isArray(raw) ? raw : [raw];
+      });
+      sendJson(res, 200, list);
       return;
     }
 
@@ -119,6 +152,25 @@ const server = createServer(async (req, res) => {
         moveIn: moveInIso || null,
       });
       return;
+    }
+
+    // Static file serving from project root. Only GET, only files under PROJECT_ROOT.
+    if (req.method === 'GET' && url.pathname !== '/' && !url.pathname.startsWith('/api/')) {
+      const requested = resolve(PROJECT_ROOT, '.' + url.pathname);
+      if (!requested.startsWith(PROJECT_ROOT + '/') && requested !== PROJECT_ROOT) {
+        res.writeHead(403); res.end('Forbidden'); return;
+      }
+      try {
+        const s = await stat(requested);
+        if (s.isFile()) {
+          const ext = extname(requested).toLowerCase();
+          const type = MIME[ext] || 'application/octet-stream';
+          const body = await readFile(requested);
+          res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-cache' });
+          res.end(body);
+          return;
+        }
+      } catch { /* fall through to 404 */ }
     }
 
     res.writeHead(404, { 'Content-Type': 'text/plain' });

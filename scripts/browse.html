@@ -529,6 +529,33 @@ function flattenFeeRows(fees) {
   return rows;
 }
 
+// Entrata returns one row per (lease term × customer relationship). For the UI
+// we want one row per *distinct* fee, with the variants collapsed into a note.
+function dedupeFees(rows) {
+  const groups = new Map();
+  for (const r of rows) {
+    const key = [
+      r.__level,
+      r.cascadeReferenceId || r.cascadeReferenceName || '',
+      r.chargeCodeName || '',
+      r.entrataCategory || '',
+      r.chargeTiming || '',
+      r.detailedAmount ?? r.rateAmount ?? '',
+      r.isOptional ?? '',
+      r.isRefundable ?? '',
+    ].join('|');
+    if (!groups.has(key)) groups.set(key, { rep: r, terms: new Set(), customers: new Set() });
+    const g = groups.get(key);
+    if (r.leaseTerm) g.terms.add(r.leaseTerm);
+    if (r.customerRelationshipName) g.customers.add(r.customerRelationshipName);
+  }
+  return [...groups.values()].map(g => ({
+    ...g.rep,
+    __terms: [...g.terms],
+    __customers: [...g.customers],
+  }));
+}
+
 function renderFeesSection(fees) {
   const section = h('section', { class: 'block' }, h('h3', {}, 'Fees'));
 
@@ -538,27 +565,34 @@ function renderFeesSection(fees) {
   if (fees.__error) {
     const code = fees.__code;
     const isPermission = code === 1403 || /not allowed/i.test(fees.__error);
-    section.append(h('div', { class: 'notice' + (isPermission ? '' : ' danger') },
-      isPermission
-        ? `Pricing API not enabled for this key: "${fees.__error}"${code ? ` (code ${code})` : ''}. Covey's Entrata admin needs to grant the Pricing resource to this integration.`
-        : `Fees call failed: ${fees.__error}${code ? ` (code ${code})` : ''}`
-    ));
+    const isEmpty = code === 310 || /no applicable fees/i.test(fees.__error);
+    if (isPermission) {
+      section.append(h('div', { class: 'notice' },
+        `Pricing API not enabled for this key: "${fees.__error}"${code ? ` (code ${code})` : ''}. Covey's Entrata admin needs to grant the Pricing resource to this integration.`));
+    } else if (isEmpty) {
+      section.append(h('div', { class: 'notice' },
+        `No fees configured in Entrata for this property yet. (API returned code ${code}: "${fees.__error}")`));
+    } else {
+      section.append(h('div', { class: 'notice danger' },
+        `Fees call failed: ${fees.__error}${code ? ` (code ${code})` : ''}`));
+    }
     return section;
   }
 
-  const rows = flattenFeeRows(fees);
-  if (!rows.length) {
+  const rawRows = flattenFeeRows(fees);
+  if (!rawRows.length) {
     section.append(h('div', { class: 'notice' }, 'No fees returned for this property.'));
     return section;
   }
+  const rows = dedupeFees(rawRows);
 
-  // Summary: mandatory monthly, one-time-at-move-in, optional counts.
+  // Summary: uses deduped rows.
   const monthlyMand = rows.filter((r) => /monthly/i.test(r.chargeTiming || '') && r.isOptional === '0').length;
   const moveInMand  = rows.filter((r) => /(move.?in|one.?time|application)/i.test(r.chargeTiming || '') && r.isOptional === '0').length;
   const optional    = rows.filter((r) => r.isOptional === '1').length;
   const card = h('div', { class: 'fees-card' });
   card.append(h('div', { class: 'fees-summary' },
-    h('span', {}, h('strong', {}, `${rows.length}`), ' total'),
+    h('span', {}, h('strong', {}, `${rows.length}`), ` unique fees (${rawRows.length} raw rows)`),
     h('span', {}, h('strong', {}, `${monthlyMand}`), ' monthly mandatory'),
     h('span', {}, h('strong', {}, `${moveInMand}`), ' at application / move-in'),
     h('span', {}, h('strong', {}, `${optional}`), ' optional / conditional'),
@@ -597,6 +631,10 @@ function renderFeesSection(fees) {
     const amount = r.detailedAmount ?? r.rateAmount;
     const mandatory = r.isOptional === '0';
     const refundable = r.isRefundable === '1';
+    const applies = [];
+    if (r.__customers?.length) applies.push(`${r.__customers.length === 1 ? r.__customers[0] : `${r.__customers.length} applicant types`}`);
+    if (r.__terms?.length > 1) applies.push(`${r.__terms.length} lease terms`);
+    else if (r.__terms?.length === 1) applies.push(r.__terms[0]);
     tbody.append(h('tr', {},
       h('td', {}, h('span', { class: `chip level-${level}` }, levelLabel),
         r.cascadeReferenceName ? h('span', { class: 'sub' }, r.cascadeReferenceName) : null),
@@ -605,6 +643,7 @@ function renderFeesSection(fees) {
         h('div', {}, r.chargeCodeName || '(unnamed)'),
         r.chargeCodeDescription && r.chargeCodeDescription !== r.chargeCodeName
           ? h('span', { class: 'sub' }, r.chargeCodeDescription) : null,
+        applies.length ? h('span', { class: 'sub' }, `Applies to: ${applies.join(' · ')}`) : null,
       ),
       h('td', {}, r.chargeTiming || '—'),
       h('td', { class: 'num' }, amount != null && amount !== '' ? fmtMoney(amount) : '—'),

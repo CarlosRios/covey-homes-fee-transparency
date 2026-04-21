@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Covey Homes — Dynamic Fee Sections</title>
+  <link rel="stylesheet" href="page.css" />
+  <style>
+    /* Stack the h1 and the "live data" pill vertically in the hero — the
+       shared .site-hero__content is a row flexbox tuned for a single child. */
+    .site-hero__content {
+      flex-direction: column;
+    }
+    .dyn-live-note-row {
+      display: block; width: 100%; margin-top: 12px; text-align: center;
+    }
+    .dyn-live-note {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; color: rgba(255,255,255,0.85);
+      margin: 0;
+      padding: 4px 10px; background: rgba(255,255,255,0.1); border-radius: 999px;
+      letter-spacing: .02em;
+    }
+    .dyn-live-note::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: #8cd39c; animation: dyn-pulse 1.6s infinite;
+    }
+    @keyframes dyn-pulse { 0%,100% { opacity: 1 } 50% { opacity: .4 } }
+
+    .dyn-picker-band {
+      background: #f3f1eb;
+      border-bottom: 1px solid #e2e0d9;
+      padding: 20px 0;
+    }
+    .dyn-picker-band__inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    }
+    .dyn-picker {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 10px 16px 10px 18px;
+      background: #ffffff; border: 1px solid #d9d6cc; border-radius: 10px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      font-size: 14px; color: #20201c;
+    }
+    .dyn-picker label {
+      font-weight: 600; color: #4a5a52; font-size: 12px;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    .dyn-picker select {
+      appearance: none; -webkit-appearance: none;
+      background: transparent; border: none; font: inherit; font-size: 14px; color: #20201c;
+      padding: 6px 28px 6px 4px; min-width: 280px; cursor: pointer;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1.5L6 6.5L11 1.5' stroke='%2320201c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>");
+      background-repeat: no-repeat; background-position: right 4px center;
+    }
+    .dyn-picker select:focus { outline: 2px solid #8cd39c; outline-offset: 2px; border-radius: 4px; }
+    .dyn-picker-hint {
+      font-size: 12px; color: #6b6b63; letter-spacing: .02em;
+    }
+
+    .dyn-empty {
+      font-size: 13px; color: #999; font-style: italic;
+      padding: 6px 0 2px;
+    }
+    .dyn-loading {
+      text-align: center; padding: 100px 20px; color: #888; font-size: 15px;
+    }
+    .dyn-loading--small {
+      padding: 24px; font-size: 13px;
+    }
+    .dyn-loading.is-overlay {
+      position: relative; padding: 40px 20px;
+    }
+    .dyn-error {
+      max-width: 720px; margin: 60px auto; padding: 24px;
+      background: #fff5f5; border: 1px solid #e7bcbc; border-radius: 8px;
+      color: #7a2828; font-size: 14px; line-height: 1.6;
+    }
+    .dyn-error code {
+      display: block; margin-top: 8px; padding: 8px 12px;
+      background: #fff; border: 1px solid #e7bcbc; border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px;
+      color: #20201c;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       HERO + HEADER
+       ════════════════════════════════════════════════════════ -->
+  <div class="site-hero">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a href="popups.html" class="site-header__logo">
+          <img src="images/logo.svg" alt="Covey Homes" />
+        </a>
+        <nav class="site-header__nav">
+          <a href="popups.html" class="nav-btn">Popups</a>
+          <a href="sections.html" class="nav-btn">Fees Sections</a>
+          <a href="sections-dynamic.html" class="nav-btn nav-btn--active">Dynamic Sections</a>
+        </nav>
+      </div>
+    </header>
+    <div class="site-hero__content">
+      <h1 class="site-hero__title">Dynamic Fees</h1>
+      <div class="dyn-live-note-row">
+        <p class="dyn-live-note" id="dyn-hero-note">Loading live data from Entrata…</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dyn-picker-band" id="dyn-picker-band" style="display:none;">
+    <div class="dyn-picker-band__inner">
+      <div class="dyn-picker">
+        <label for="dyn-property-select">Property</label>
+        <select id="dyn-property-select"></select>
+      </div>
+    </div>
+  </div>
+
+  <main id="dyn-root">
+    <div class="dyn-loading">Loading properties from Entrata…</div>
+  </main>
+
+  <script>
+    // Default: Covey Homes Loganville — richest fee set. Overridable via URL hash.
+    const DEFAULT_PROPERTY_ID = '100027881';
+
+    // ─── helpers ────────────────────────────────────────────────────────────
+    const asArray = (v) => v == null ? [] : Array.isArray(v) ? v : [v];
+    const fmtMoney = (n) => {
+      if (n == null || n === '') return '';
+      const num = Number(String(n).replace(/[^0-9.\-]/g, ''));
+      if (!isFinite(num)) return String(n);
+      return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    };
+
+    // The API returns one row per (lease term × applicant type). Collapse to unique.
+    function dedupeFees(rows) {
+      const map = new Map();
+      for (const r of rows) {
+        const key = [r.chargeCodeName, r.chargeTiming, r.detailedAmount, r.isOptional, r.isRefundable].join('|');
+        if (!map.has(key)) map.set(key, { rep: { ...r }, customers: new Set(), terms: new Set() });
+        const g = map.get(key);
+        if (r.customerRelationshipName) g.customers.add(r.customerRelationshipName);
+        if (r.leaseTerm) g.terms.add(r.leaseTerm);
+      }
+      return [...map.values()].map((g) => ({
+        ...g.rep,
+        __customers: [...g.customers],
+        __terms: [...g.terms],
+      }));
+    }
+
+    // Classify each fee into one of the known section buckets.
+    function categorize(fee) {
+      const name = (fee.chargeCodeName || '').toLowerCase();
+      const cat = (fee.entrataCategory || '').toLowerCase();
+      if (cat === 'pet' || /\bpet\b/.test(name)) return 'pets';
+      if (/bundle|livemore/.test(name)) return 'bundle';
+      if (/utilit|water|sewer|electric|trash|garbage|internet|wifi/.test(name)) return 'utilities';
+      if (/parking/.test(name)) return 'parking';
+      if (/rent.?report|homebody/.test(name)) return 'rent-reporting';
+      if (/application|admin|administrative|move.?in/.test(name)) return 'application';
+      if (fee.isOptional === '1' || /late|nsf|eviction|termination|transfer|violation|insurance|processing|\bkey\b|\bfob\b/.test(name)) return 'situational';
+      return 'other';
+    }
+
+    function feeToRow(fee) {
+      const money = fmtMoney(fee.detailedAmount ?? fee.rateAmount);
+      const isMonthly = /monthly/i.test(fee.chargeTiming || '');
+      const isApp = /application/i.test(fee.chargeTiming || '');
+      let small = '';
+      if (isMonthly) small = '/ mo';
+      else if (isApp && fee.__customers?.length >= 2) small = 'per applicant';
+      else if (isApp) small = 'per unit';
+      const note = fee.isRefundable === '0' && !isMonthly ? 'Non-refundable' : null;
+      return { label: fee.chargeCodeName, amount: money, small, note };
+    }
+
+    // Security deposits grouped by bedroom count (from getFloorPlans).
+    function depositRowsFromFloorPlans(floorPlans) {
+      const groups = new Map();
+      for (const fp of asArray(floorPlans)) {
+        const beds = asArray(fp.Room).find((r) => r['@attributes']?.RoomType === 'Bedroom')?.Count;
+        const dep = fp.Deposit?.Amount?.ValueRange?.['@attributes'];
+        if (!beds || !dep) continue;
+        if (!groups.has(String(beds))) groups.set(String(beds), new Set());
+        groups.get(String(beds)).add(dep.Min);
+        groups.get(String(beds)).add(dep.Max);
+      }
+      const out = [];
+      for (const [beds, set] of [...groups.entries()].sort((a, b) => +a[0] - +b[0])) {
+        const nums = [...set].map(Number).filter(Number.isFinite).sort((a, b) => a - b);
+        if (!nums.length) continue;
+        const val = nums[0] === nums[nums.length - 1]
+          ? fmtMoney(nums[0])
+          : `${fmtMoney(nums[0])} – ${fmtMoney(nums[nums.length - 1])}`;
+        out.push({ label: `Security Deposit — ${beds} Bed`, amount: val, small: '' });
+      }
+      return out;
+    }
+
+    function formatAddress(a) {
+      if (!a) return '';
+      return [a.Address, [a.City, a.State].filter(Boolean).join(', '), a.PostalCode].filter(Boolean).join(', ');
+    }
+
+    // ─── build a normalized section model from the API response ─────────────
+    function buildSections(data) {
+      const raw = asArray(data?.fees?.propertyFees);
+      const fees = dedupeFees(raw);
+      const bucket = { application: [], pets: [], utilities: [], 'rent-reporting': [], situational: [], parking: [], bundle: [], other: [] };
+      for (const f of fees) bucket[categorize(f)].push(f);
+
+      // Pull security deposits out of floor plan data so the Application section has them.
+      const deposits = depositRowsFromFloorPlans(data?.floorPlans);
+
+      return [
+        { id: 'application', title: 'Application & Move-In',
+          rows: [...bucket.application.map(feeToRow), ...deposits] },
+        { id: 'pets', title: 'Pets', rows: bucket.pets.map(feeToRow) },
+        { id: 'utilities', title: 'Utilities', rows: bucket.utilities.map(feeToRow) },
+        { id: 'rent-reporting', title: 'Rent Reporting', rows: bucket['rent-reporting'].map(feeToRow) },
+        { id: 'situational', title: 'Situational Fees', rows: bucket.situational.map(feeToRow) },
+        { id: 'parking', title: 'Parking', rows: bucket.parking.map(feeToRow) },
+        { id: 'bundle', title: 'Monthly Bundles', rows: bucket.bundle.map(feeToRow), accent: true },
+      ];
+    }
+
+    // ─── HTML helpers ───────────────────────────────────────────────────────
+    const el = (tag, attrs = {}, ...children) => {
+      const n = document.createElement(tag);
+      for (const [k, v] of Object.entries(attrs)) {
+        if (k === 'class') n.className = v;
+        else if (k === 'html') n.innerHTML = v;
+        else if (v != null) n.setAttribute(k, v);
+      }
+      for (const c of children) {
+        if (c == null || c === false) continue;
+        n.append(c.nodeType ? c : document.createTextNode(String(c)));
+      }
+      return n;
+    };
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    // ─── Tabs + Panels layout ───────────────────────────────────────────────
+    function renderTabs(sections, eyebrow, headline, subhead) {
+      const section = el('section', { class: 'fees-section fees-section--light', id: 'fees-tabs' });
+      const container = el('div', { class: 'fees-container fees-tabs-layout' });
+      const left = el('div', { class: 'fees-tabs-left' },
+        el('span', { class: 'fees-eyebrow' }, eyebrow),
+        el('h2', { class: 'fees-headline' }, headline),
+        el('p', { class: 'fees-subhead', html: subhead }));
+      const tabs = el('nav', { class: 'fee-tabs', role: 'tablist' });
+      for (let i = 0; i < sections.length; i++) {
+        const s = sections[i];
+        const btn = el('button', {
+          class: 'fee-tab' + (i === 0 ? ' fee-tab--active' : '') + (s.accent ? ' fee-tab--accent' : ''),
+          role: 'tab',
+          'data-tab': `tab-${s.id}`,
+        }, s.title);
+        tabs.append(btn);
+      }
+      left.append(tabs);
+
+      const right = el('div', { class: 'fees-tabs-right' });
+      for (let i = 0; i < sections.length; i++) {
+        const s = sections[i];
+        const panel = el('div', {
+          class: 'fee-panel' + (i === 0 ? ' fee-panel--active' : '') + (s.accent ? ' fee-panel--accent' : ''),
+          id: `tab-${s.id}`,
+        });
+        panel.append(el('div', { class: 'fee-panel__header' }, el('h3', {}, s.title)));
+        if (!s.rows.length) {
+          panel.append(el('p', { class: 'fee-acc-note' }, 'Not currently available for this property.'));
+        } else {
+          for (const r of s.rows) {
+            const val = r.small ? `${r.amount} ${r.small}` : r.amount;
+            panel.append(el('div', { class: 'fee-acc-row' }, el('span', {}, r.label), el('span', {}, val)));
+            if (r.note) panel.append(el('p', { class: 'fee-acc-note' }, r.note));
+          }
+        }
+        right.append(panel);
+      }
+      container.append(left, right);
+      section.append(container);
+      return section;
+    }
+
+    // ─── Tab switching ──────────────────────────────────────────────────────
+    function wireInteractive(root) {
+      root.querySelectorAll('.fee-tab').forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const tablist = tab.closest('.fee-tabs');
+          const section = tab.closest('.fees-tabs-layout');
+          tablist.querySelectorAll('.fee-tab').forEach((t) => t.classList.remove('fee-tab--active'));
+          tab.classList.add('fee-tab--active');
+          section.querySelectorAll('.fee-panel').forEach((p) => p.classList.remove('fee-panel--active'));
+          const panel = section.querySelector('#' + tab.dataset.tab);
+          if (panel) panel.classList.add('fee-panel--active');
+        });
+      });
+    }
+
+    // ─── main ───────────────────────────────────────────────────────────────
+    let allProperties = [];       // cached in this page's memory after first fetch
+    let currentLoadToken = 0;     // guards against race when user switches quickly
+
+    function propertyIdFromHash() {
+      const m = (location.hash || '').match(/^#(\d+)$/);
+      return m ? m[1] : null;
+    }
+
+    function showError(message) {
+      const root = document.getElementById('dyn-root');
+      root.innerHTML = '';
+      root.append(el('div', { class: 'dyn-error' },
+        el('strong', {}, 'Couldn’t load live data.'),
+        el('p', {}, message),
+        el('p', {}, 'This page requires the local browse server. Start it with:'),
+        el('code', {}, 'node --env-file=.env scripts/browse.mjs'),
+      ));
+    }
+
+    function populateSelector() {
+      const select = document.getElementById('dyn-property-select');
+      const sorted = [...allProperties].sort((a, b) => (a.MarketingName || '').localeCompare(b.MarketingName || ''));
+      select.innerHTML = '';
+      for (const p of sorted) {
+        const opt = document.createElement('option');
+        opt.value = String(p.PropertyID);
+        const label = p.MarketingName || `Property ${p.PropertyID}`;
+        opt.textContent = p.IsDisabled === '1' ? `${label} (disabled)` : label;
+        select.append(opt);
+      }
+      select.addEventListener('change', () => {
+        location.hash = `#${select.value}`;
+      });
+      document.getElementById('dyn-picker-band').style.display = 'block';
+    }
+
+    function selectedId() {
+      const fromHash = propertyIdFromHash();
+      if (fromHash && allProperties.some((p) => String(p.PropertyID) === fromHash)) return fromHash;
+      if (allProperties.some((p) => String(p.PropertyID) === DEFAULT_PROPERTY_ID)) return DEFAULT_PROPERTY_ID;
+      return allProperties[0] && String(allProperties[0].PropertyID);
+    }
+
+    async function loadProperty(propertyId) {
+      const token = ++currentLoadToken;
+
+      // Sync the picker's visible value with the active property.
+      const select = document.getElementById('dyn-property-select');
+      if (select && select.value !== String(propertyId)) select.value = String(propertyId);
+
+      // Hero placeholder while fetching.
+      document.getElementById('dyn-hero-note').textContent = `Loading live fees from Entrata · Property ID ${propertyId}…`;
+
+      const root = document.getElementById('dyn-root');
+      root.innerHTML = '';
+      root.append(el('div', { class: 'dyn-loading' }, 'Fetching fees…'));
+
+      try {
+        const res = await fetch(`/api/property/${propertyId}`);
+        if (token !== currentLoadToken) return; // a newer selection superseded us
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (token !== currentLoadToken) return;
+        render(data, propertyId);
+      } catch (e) {
+        if (token !== currentLoadToken) return;
+        showError(e.message);
+      }
+    }
+
+    function render(data, propertyId) {
+      const sections = buildSections(data);
+      const prop = asArray(data.property)[0] || {};
+      const name = prop.MarketingName || 'Property';
+      const addr = formatAddress(prop.Address) || '';
+      const updated = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      const eyebrow = name;
+      const headline = 'Complete Fee Breakdown';
+      const feesErr = data?.fees?.__error;
+      const subhead = feesErr
+        ? `${addr} &middot; ${esc(feesErr)}${data.fees.__code ? ` (code ${data.fees.__code})` : ''}`
+        : `${addr} &middot; Live data &middot; Updated ${updated}`;
+
+      document.getElementById('dyn-hero-note').textContent = `Live data from Entrata · Property ID ${prop.PropertyID || propertyId}`;
+
+      const root = document.getElementById('dyn-root');
+      root.innerHTML = '';
+      root.append(renderTabs(sections, eyebrow, headline, subhead));
+      wireInteractive(root);
+    }
+
+    async function init() {
+      try {
+        const res = await fetch('/api/properties');
+        if (!res.ok) throw new Error(`HTTP ${res.status} loading property list`);
+        allProperties = await res.json();
+        if (!Array.isArray(allProperties) || !allProperties.length) {
+          throw new Error('No properties returned');
+        }
+      } catch (e) {
+        showError(e.message);
+        return;
+      }
+      populateSelector();
+      window.addEventListener('hashchange', () => {
+        const id = selectedId();
+        if (id) loadProperty(id);
+      });
+      const id = selectedId();
+      if (id) loadProperty(id);
+    }
+
+    init();
+  </script>
+</body>
+</html>
