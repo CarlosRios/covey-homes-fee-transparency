@@ -310,16 +310,16 @@
     let currentLoadToken = 0;      // guards against race when user switches quickly
 
     function propertyIdFromHash() {
-      const m = (location.hash || ‘’).match(/^#(\d+)$/);
+      const m = (location.hash || '').match(/^#(\d+)$/);
       return m ? m[1] : null;
     }
 
     function showError(message) {
-      const root = document.getElementById(‘dyn-root’);
-      root.innerHTML = ‘’;
-      root.append(el(‘div’, { class: ‘dyn-error’ },
-        el(‘strong’, {}, "Couldn’t load fee data."),
-        el(‘p’, {}, message),
+      const root = document.getElementById('dyn-root');
+      root.innerHTML = '';
+      root.append(el('div', { class: 'dyn-error' },
+        el('strong', {}, "Couldn't load fee data."),
+        el('p', {}, message),
       ));
     }
 
@@ -328,20 +328,20 @@
     }
 
     function populateSelector() {
-      const select = document.getElementById(‘dyn-property-select’);
-      const sorted = [...allProperties()].sort((a, b) => (a.MarketingName || ‘’).localeCompare(b.MarketingName || ‘’));
-      select.innerHTML = ‘’;
+      const select = document.getElementById('dyn-property-select');
+      const sorted = [...allProperties()].sort((a, b) => (a.MarketingName || '').localeCompare(b.MarketingName || ''));
+      select.innerHTML = '';
       for (const p of sorted) {
-        const opt = document.createElement(‘option’);
+        const opt = document.createElement('option');
         opt.value = String(p.PropertyID);
         const label = p.MarketingName || `Property ${p.PropertyID}`;
-        opt.textContent = p.IsDisabled === ‘1’ ? `${label} (disabled)` : label;
+        opt.textContent = p.IsDisabled === '1' ? `${label} (disabled)` : label;
         select.append(opt);
       }
-      select.addEventListener(‘change’, () => {
+      select.addEventListener('change', () => {
         location.hash = `#${select.value}`;
       });
-      document.getElementById(‘dyn-picker-band’).style.display = ‘block’;
+      document.getElementById('dyn-picker-band').style.display = 'block';
     }
 
     function selectedId() {
@@ -355,8 +355,8 @@
     function loadProperty(propertyId) {
       const token = ++currentLoadToken;
 
-      // Sync the picker’s visible value with the active property.
-      const select = document.getElementById(‘dyn-property-select’);
+      // Sync the picker's visible value with the active property.
+      const select = document.getElementById('dyn-property-select');
       if (select && select.value !== String(propertyId)) select.value = String(propertyId);
 
       const propData = allProperties().find((p) => String(p.PropertyID) === String(propertyId));
@@ -378,43 +378,43 @@
       };
 
       const sections = buildSections(data);
-      const name = propData.MarketingName || ‘Property’;
-      const addr = formatAddress(propData.Address) || ‘’;
+      const name = propData.MarketingName || 'Property';
+      const addr = formatAddress(propData.Address) || '';
       const generated = snapshot?.__generatedAt
-        ? new Date(snapshot.__generatedAt).toLocaleDateString(‘en-US’, { year: ‘numeric’, month: ‘long’, day: ‘numeric’ })
-        : new Date().toLocaleDateString(‘en-US’, { year: ‘numeric’, month: ‘long’, day: ‘numeric’ });
+        ? new Date(snapshot.__generatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+        : new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
       const eyebrow = name;
-      const headline = ‘Complete Fee Breakdown’;
+      const headline = 'Complete Fee Breakdown';
       const feesErr = propData?.fees?.__error;
       const subhead = feesErr
-        ? `${addr} &middot; ${esc(feesErr)}${propData.fees.__code ? ` (code ${propData.fees.__code})` : ‘’}`
+        ? `${addr} &middot; ${esc(feesErr)}${propData.fees.__code ? ` (code ${propData.fees.__code})` : ''}`
         : `${addr} &middot; Updated ${generated}`;
 
-      document.getElementById(‘dyn-hero-note’).textContent = `Live data from Entrata · Property ID ${propData.PropertyID || propertyId}`;
+      document.getElementById('dyn-hero-note').textContent = `Live data from Entrata · Property ID ${propData.PropertyID || propertyId}`;
 
-      const root = document.getElementById(‘dyn-root’);
-      root.innerHTML = ‘’;
+      const root = document.getElementById('dyn-root');
+      root.innerHTML = '';
       root.append(renderTabs(sections, eyebrow, headline, subhead));
       wireInteractive(root);
     }
 
     async function init() {
       try {
-        // Try the local dev server’s API first (faster dev iteration).
+        // Try the local dev server's API first (faster dev iteration).
         // Falls back to the static snapshot for GitHub Pages.
         let loaded = false;
 
         // Attempt local API
         try {
-          const res = await fetch(‘/api/properties’, { signal: AbortSignal.timeout(2000) });
+          const res = await fetch('/api/properties', { signal: AbortSignal.timeout(2000) });
           if (res.ok) {
             const props = await res.json();
             if (Array.isArray(props) && props.length) {
-              // We’re running on the local server — fetch fees live per-property.
+              // We're running on the local server — fetch fees live per-property.
               snapshot = { __generatedAt: null, properties: props.map((p) => ({ ...p, fees: null, floorPlans: null })) };
               loaded = true;
               populateSelector();
-              window.addEventListener(‘hashchange’, () => {
+              window.addEventListener('hashchange', () => {
                 const id = selectedId();
                 if (id) loadPropertyLive(id);
               });
@@ -426,11 +426,11 @@
         } catch { /* not on local server, fall through */ }
 
         // Static snapshot (GitHub Pages)
-        const res = await fetch(‘data/entrata-snapshot.json’);
+        const res = await fetch('data/entrata-snapshot.json');
         if (!res.ok) throw new Error(`HTTP ${res.status} loading snapshot`);
         snapshot = await res.json();
         if (!Array.isArray(snapshot?.properties) || !snapshot.properties.length) {
-          throw new Error(‘Snapshot is empty or malformed’);
+          throw new Error('Snapshot is empty or malformed');
         }
         loaded = true;
       } catch (e) {
@@ -439,7 +439,7 @@
       }
 
       populateSelector();
-      window.addEventListener(‘hashchange’, () => {
+      window.addEventListener('hashchange', () => {
         const id = selectedId();
         if (id) loadProperty(id);
       });
@@ -451,14 +451,14 @@
     async function loadPropertyLive(propertyId) {
       const token = ++currentLoadToken;
 
-      const select = document.getElementById(‘dyn-property-select’);
+      const select = document.getElementById('dyn-property-select');
       if (select && select.value !== String(propertyId)) select.value = String(propertyId);
 
-      document.getElementById(‘dyn-hero-note’).textContent = `Loading live fees from Entrata · Property ID ${propertyId}…`;
+      document.getElementById('dyn-hero-note').textContent = `Loading live fees from Entrata · Property ID ${propertyId}…`;
 
-      const root = document.getElementById(‘dyn-root’);
-      root.innerHTML = ‘’;
-      root.append(el(‘div’, { class: ‘dyn-loading’ }, ‘Fetching fees…’));
+      const root = document.getElementById('dyn-root');
+      root.innerHTML = '';
+      root.append(el('div', { class: 'dyn-loading' }, 'Fetching fees…'));
 
       try {
         const res = await fetch(`/api/property/${propertyId}`);
