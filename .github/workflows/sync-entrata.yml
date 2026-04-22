@@ -35,6 +35,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to snapshot — skipping commit."
           else
-            git commit -m "chore: nightly Entrata fee snapshot [skip ci]"
+            git commit -m "chore: nightly Entrata fee snapshot"
             git push
           fi
