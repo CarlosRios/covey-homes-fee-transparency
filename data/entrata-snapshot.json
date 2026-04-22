@@ -1,5 +1,5 @@
 {
-  "__generatedAt": "2026-04-22T02:53:40.072Z",
+  "__generatedAt": "2026-04-22T04:00:29.896Z",
   "__propertyCount": 34,
   "properties": [
     {
@@ -356,7 +356,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"c4b4880b-ca6a-42e2-adce-975ba5c5ba0a\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -713,7 +714,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"ad6d3bf2-327d-416a-b139-3ffa90256e88\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -1070,7 +1072,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"690f3951-78ed-4370-a1b3-9365b9ef153e\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -1259,7 +1262,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"e0b6d246-a259-4047-9a2b-7b5387aded1a\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -1620,7 +1624,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"cfcd0276-5201-40c1-b70b-61511a6c606c\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -1896,7 +1901,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"49b6221d-69e6-4cd7-8d7d-e768ef80e978\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -2536,7 +2542,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"6015bb3a-d2bc-40b8-8453-ed6e744570e6\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -5752,7 +5759,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"502c7b0f-055e-46a2-b005-4e38b994132b\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -6028,7 +6036,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"d36b45b3-f2a1-4f01-b352-ebb5c44e2e57\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -6644,7 +6653,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"afbbf2fa-0ae6-4c03-9390-008ed51dd941\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -6835,7 +6845,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"8782e4f3-87ad-41e0-b564-63bd0c1e9332\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -7192,7 +7203,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"32881f04-ec76-4703-b02e-1fddbcae73b4\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -7549,7 +7561,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"4756d790-d290-4e5c-a10a-8a9b547f96fe\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -7822,7 +7835,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"ddda2bfa-c7f6-4ea2-bb2f-14d09d2c0f75\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -8263,7 +8277,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"6efdd84c-6aa2-451c-a707-1905fce832cc\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -8705,7 +8720,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"e63be77a-d405-43fe-bcd5-70cf5c280705\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -9230,7 +9246,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"14d5c297-4010-488b-8ab4-802b8e6a21cf\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -14763,7 +14780,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"b57282aa-efea-42cf-93f8-a857eab1bac2\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -16683,7 +16701,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"6d73ff5b-e654-4f5f-bb9c-e4447febbc04\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -16956,7 +16975,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"e848ae42-57d0-4e31-b098-7ef689f1e62d\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -20638,7 +20658,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"09175fc2-b08d-46aa-aaf6-9e836804ea70\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -20995,7 +21016,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"e33e87d4-8994-44c4-aec9-05e38d0e719a\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -21439,7 +21461,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"202c4704-633d-4abc-8df9-000abe44c831\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -21796,7 +21819,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"803895e0-51ca-417e-ae88-9fb7e139f4da\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -22153,7 +22177,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"99adf458-3d0d-4ed8-9cc3-3b88e0143865\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -29322,7 +29347,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"5c85d42b-0e08-468b-8080-e94d5ccab473\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -29496,7 +29522,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"85e40209-d718-4061-9f07-9f16ce34b2ef\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     },
     {
@@ -30021,7 +30048,8 @@
         }
       ],
       "fees": {
-        "__error": "HTTP 400 Bad Request on pricing/getPropertyFees\n{\"response\":{\"requestId\":\"ab4ff8ee-5347-4495-b8a5-840e6e08c510\",\"error\":{\"code\":310,\"message\":\"The property requested has no applicable fees configured.\"}}}"
+        "__error": "The property requested has no applicable fees configured.",
+        "__code": 310
       }
     }
   ]
