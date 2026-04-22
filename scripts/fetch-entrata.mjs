@@ -5,12 +5,14 @@
 //   node --env-file=.env scripts/fetch-entrata.mjs discover
 //   node --env-file=.env scripts/fetch-entrata.mjs fetch <propertyId>
 //   node --env-file=.env scripts/fetch-entrata.mjs raw <resource> <method> [jsonParams]
+//   node --env-file=.env scripts/fetch-entrata.mjs snapshot
 //
 // Env:
 //   ENTRATA_BASE_URL  e.g. https://apis.entrata.com/ext/orgs/<orgs>/v1
 //   ENTRATA_API_KEY   X-Api-Key header value
 
-import { writeFile } from 'node:fs/promises';
+import { writeFile, mkdir } from 'node:fs/promises';
+import { dirname } from 'node:path';
 import { randomUUID } from 'node:crypto';
 
 const BASE_URL = process.env.ENTRATA_BASE_URL;
@@ -120,23 +122,78 @@ async function raw(resource, method, paramsJson) {
   console.log(JSON.stringify(res, null, 2));
 }
 
+// Fetch all properties + their fees/floor plans and write a static JSON snapshot.
+// Used by GitHub Actions to publish data the static site can fetch without a server.
+async function snapshot() {
+  console.log('Building static snapshot…\n');
+
+  // Step 1: get full property list
+  const listRes = await call('properties', 'getProperties', {});
+  const allProps = asArray(listRes?.response?.result?.PhysicalProperty?.Property);
+  console.log(`Found ${allProps.length} properties. Fetching fees + floor plans for each…\n`);
+
+  const properties = [];
+
+  for (const prop of allProps) {
+    const pid = String(prop.PropertyID ?? prop.propertyId ?? '');
+    const name = prop.MarketingName || `Property ${pid}`;
+    process.stdout.write(`  ${name.padEnd(40)} `);
+
+    const tasks = await Promise.allSettled([
+      call('properties', 'getFloorPlans', { propertyId: Number(pid) }),
+      call('pricing',    'getPropertyFees', { propertyId: pid }),
+    ]);
+    const pick = (r) => r.status === 'fulfilled' ? r.value : { __error: r.reason.message, __code: r.reason.code };
+    const [fpRes, feesRes] = tasks.map(pick);
+
+    const floorPlans = fpRes?.response?.result?.FloorPlans?.FloorPlan ?? fpRes;
+    const fees = feesRes?.response?.result ?? feesRes;
+
+    const noFees = feesRes?.__code === 310 || feesRes?.__error?.includes('310');
+    process.stdout.write(noFees ? '(no fees)\n' : '✓\n');
+
+    properties.push({
+      PropertyID: prop.PropertyID,
+      MarketingName: prop.MarketingName,
+      IsDisabled: prop.IsDisabled,
+      Address: prop.Address,
+      floorPlans,
+      fees,
+    });
+  }
+
+  const snapshot = {
+    __generatedAt: new Date().toISOString(),
+    __propertyCount: properties.length,
+    properties,
+  };
+
+  const outPath = 'data/entrata-snapshot.json';
+  await mkdir(dirname(outPath), { recursive: true });
+  await writeFile(outPath, JSON.stringify(snapshot, null, 2));
+  console.log(`\nWrote ${outPath}  (${properties.length} properties)`);
+}
+
 const [cmd, ...args] = process.argv.slice(2);
 
 try {
   switch (cmd) {
-    case 'discover': await discover();            break;
-    case 'fetch':    await fetchAll(args[0]);     break;
-    case 'raw':      await raw(args[0], args[1], args[2]); break;
+    case 'discover':  await discover();                          break;
+    case 'fetch':     await fetchAll(args[0]);                   break;
+    case 'raw':       await raw(args[0], args[1], args[2]);      break;
+    case 'snapshot':  await snapshot();                          break;
     default:
       console.log(`Usage:
   node --env-file=.env scripts/fetch-entrata.mjs discover
   node --env-file=.env scripts/fetch-entrata.mjs fetch <propertyId>
   node --env-file=.env scripts/fetch-entrata.mjs raw <resource> <method> [jsonParams]
+  node --env-file=.env scripts/fetch-entrata.mjs snapshot
 
 Examples:
   node --env-file=.env scripts/fetch-entrata.mjs discover
   node --env-file=.env scripts/fetch-entrata.mjs fetch 12345
-  node --env-file=.env scripts/fetch-entrata.mjs raw pricing getPricingPicklists`);
+  node --env-file=.env scripts/fetch-entrata.mjs raw pricing getPricingPicklists
+  node --env-file=.env scripts/fetch-entrata.mjs snapshot`);
   }
 } catch (e) {
   console.error(`\nError: ${e.message}`);

@@ -1,0 +1,6 @@
+{
+  "__generatedAt": null,
+  "__propertyCount": 0,
+  "__note": "This file is auto-generated nightly by the sync-entrata GitHub Actions workflow. Run: node --env-file=.env scripts/fetch-entrata.mjs snapshot",
+  "properties": []
+}
