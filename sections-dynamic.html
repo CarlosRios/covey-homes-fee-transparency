@@ -386,9 +386,18 @@
       const eyebrow = name;
       const headline = 'Complete Fee Breakdown';
       const feesErr = propData?.fees?.__error;
-      const subhead = feesErr
-        ? `${addr} &middot; ${esc(feesErr)}${propData.fees.__code ? ` (code ${propData.fees.__code})` : ''}`
-        : `${addr} &middot; Updated ${generated}`;
+      const feesCode = propData?.fees?.__code
+        ?? (feesErr && /"code":\s*(\d+)/.exec(feesErr)?.[1]);
+      const noFeesConfigured = String(feesCode) === '310'
+        || /no applicable fees configured/i.test(feesErr || '');
+      let subhead;
+      if (noFeesConfigured) {
+        subhead = `${addr} &middot; No fees configured for this property &middot; Updated ${generated}`;
+      } else if (feesErr) {
+        subhead = `${addr} &middot; Unable to load fees${feesCode ? ` (code ${feesCode})` : ''} &middot; Updated ${generated}`;
+      } else {
+        subhead = `${addr} &middot; Updated ${generated}`;
+      }
 
       document.getElementById('dyn-hero-note').textContent = `Live data from Entrata · Property ID ${propData.PropertyID || propertyId}`;
 

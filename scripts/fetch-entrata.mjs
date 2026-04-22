@@ -49,13 +49,16 @@ async function call(resource, methodName, params = {}, version) {
   let json = null;
   try { json = JSON.parse(text); } catch { /* not JSON */ }
 
+  // Prefer Entrata's structured error (has a useful code like 310) over raw HTTP.
+  if (json?.response?.error) {
+    const { code, message } = json.response.error;
+    const err = new Error(message || `Entrata error ${code} on ${resource}/${methodName}`);
+    err.code = code;
+    throw err;
+  }
   if (!res.ok) {
     const snippet = text.slice(0, 800);
     throw new Error(`HTTP ${res.status} ${res.statusText} on ${resource}/${methodName}\n${snippet}`);
-  }
-  if (json?.response?.error) {
-    const { code, message } = json.response.error;
-    throw new Error(`Entrata error ${code} on ${resource}/${methodName}: ${message}`);
   }
   return json;
 }
