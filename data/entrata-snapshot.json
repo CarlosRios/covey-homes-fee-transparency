@@ -1,5 +1,5 @@
 {
-  "__generatedAt": "2026-04-22T04:06:54.728Z",
+  "__generatedAt": "2026-04-23T04:08:27.966Z",
   "__propertyCount": 34,
   "properties": [
     {
@@ -282,7 +282,7 @@
           "Name": "Juniper",
           "PropertyId": 100011082,
           "UnitCount": "66",
-          "UnitsAvailable": "9",
+          "UnitsAvailable": "10",
           "UnitTypes": {
             "UnitType": [
               {
@@ -556,7 +556,7 @@
           "Name": "Lavender",
           "PropertyId": 100011083,
           "UnitCount": "25",
-          "UnitsAvailable": "3",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -1104,7 +1104,7 @@
           "Name": "Sage",
           "PropertyId": 100011084,
           "UnitCount": "155",
-          "UnitsAvailable": "5",
+          "UnitsAvailable": "6",
           "UnitTypes": {
             "UnitType": [
               {
@@ -1188,7 +1188,7 @@
           "Name": "Rosemary",
           "PropertyId": 100011084,
           "UnitCount": "80",
-          "UnitsAvailable": "12",
+          "UnitsAvailable": "11",
           "UnitTypes": {
             "UnitType": [
               {
@@ -1657,7 +1657,7 @@
           "PropertyId": 100011086,
           "Comment": "Paprika",
           "UnitCount": "78",
-          "UnitsAvailable": "5",
+          "UnitsAvailable": "4",
           "UnitTypes": {
             "UnitType": [
               {
@@ -2914,7 +2914,7 @@
           "Name": "Carraway",
           "PropertyId": 100027880,
           "UnitCount": "27",
-          "UnitsAvailable": "4",
+          "UnitsAvailable": "5",
           "UnitTypes": {
             "UnitType": [
               {
@@ -6069,7 +6069,7 @@
           "PropertyId": 100011089,
           "Comment": "Mint",
           "UnitCount": "21",
-          "UnitsAvailable": "2",
+          "UnitsAvailable": "1",
           "UnitTypes": {
             "UnitType": [
               {
@@ -6494,7 +6494,7 @@
           "PropertyId": 100011089,
           "Comment": "Lavender",
           "UnitCount": "40",
-          "UnitsAvailable": "6",
+          "UnitsAvailable": "5",
           "UnitTypes": {
             "UnitType": [
               {
@@ -6579,7 +6579,7 @@
           "PropertyId": 100011089,
           "Comment": "Bayleave",
           "UnitCount": "11",
-          "UnitsAvailable": "1",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -6686,7 +6686,7 @@
           "PropertyId": 100011090,
           "Comment": "Juniper",
           "UnitCount": "46",
-          "UnitsAvailable": "5",
+          "UnitsAvailable": "6",
           "UnitTypes": {
             "UnitType": [
               {
@@ -6877,7 +6877,7 @@
           "Name": "Lemon",
           "PropertyId": 100011091,
           "UnitCount": "52",
-          "UnitsAvailable": "1",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7235,7 +7235,7 @@
           "Name": "Elderflower",
           "PropertyId": 100042447,
           "UnitCount": "16",
-          "UnitsAvailable": "3",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7270,7 +7270,7 @@
           "MarketRent": {
             "@attributes": {
               "Max": 2381,
-              "Min": 2250
+              "Min": 2311
             }
           },
           "Deposit": {
@@ -7403,7 +7403,7 @@
           "Name": "Clove",
           "PropertyId": 100042447,
           "UnitCount": "47",
-          "UnitsAvailable": "7",
+          "UnitsAvailable": "6",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7677,7 +7677,7 @@
           "Name": "Pimento",
           "PropertyId": 100011092,
           "UnitCount": "119",
-          "UnitsAvailable": "14",
+          "UnitsAvailable": "13",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7761,7 +7761,7 @@
           "Name": "Chive",
           "PropertyId": 100011092,
           "UnitCount": "70",
-          "UnitsAvailable": "8",
+          "UnitsAvailable": "9",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7867,7 +7867,7 @@
           "Name": "Juniper",
           "PropertyId": 100011093,
           "UnitCount": "73",
-          "UnitsAvailable": "4",
+          "UnitsAvailable": "3",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7951,7 +7951,7 @@
           "Name": "Myrtle",
           "PropertyId": 100011093,
           "UnitCount": "29",
-          "UnitsAvailable": "10",
+          "UnitsAvailable": "8",
           "UnitTypes": {
             "UnitType": [
               {
@@ -8562,7 +8562,7 @@
           "PropertyId": 100011094,
           "Comment": "Ginger",
           "UnitCount": "58",
-          "UnitsAvailable": "15",
+          "UnitsAvailable": "13",
           "UnitTypes": {
             "UnitType": [
               {
@@ -8646,7 +8646,7 @@
           "Name": "Caraway",
           "PropertyId": 100011094,
           "UnitCount": "59",
-          "UnitsAvailable": "7",
+          "UnitsAvailable": "8",
           "UnitTypes": {
             "UnitType": [
               {
@@ -9004,7 +9004,7 @@
           "Name": "Clove",
           "PropertyId": 100027883,
           "UnitCount": "148",
-          "UnitsAvailable": "16",
+          "UnitsAvailable": "18",
           "UnitTypes": {
             "UnitType": [
               {
@@ -9277,7 +9277,7 @@
           "Name": "Poppy",
           "PropertyId": 100027881,
           "UnitCount": "66",
-          "UnitsAvailable": "1",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -9361,7 +9361,7 @@
           "Name": "Ginger",
           "PropertyId": 100027881,
           "UnitCount": "98",
-          "UnitsAvailable": "9",
+          "UnitsAvailable": "8",
           "UnitTypes": {
             "UnitType": [
               {
@@ -14538,7 +14538,7 @@
           "Name": "Oregano",
           "PropertyId": 100096103,
           "UnitCount": "14",
-          "UnitsAvailable": "2",
+          "UnitsAvailable": "1",
           "UnitTypes": {
             "UnitType": [
               {
@@ -14622,7 +14622,7 @@
           "Name": "Chicory",
           "PropertyId": 100096103,
           "UnitCount": "34",
-          "UnitsAvailable": "8",
+          "UnitsAvailable": "7",
           "UnitTypes": {
             "UnitType": [
               {
@@ -14706,7 +14706,7 @@
           "Name": "Basil",
           "PropertyId": 100096103,
           "UnitCount": "26",
-          "UnitsAvailable": "0",
+          "UnitsAvailable": "1",
           "UnitTypes": {
             "UnitType": [
               {
@@ -14980,7 +14980,7 @@
           "Name": "Caraway",
           "PropertyId": 100063757,
           "UnitCount": "98",
-          "UnitsAvailable": "16",
+          "UnitsAvailable": "17",
           "UnitTypes": {
             "UnitType": [
               {
@@ -15064,7 +15064,7 @@
           "Name": "Myrtle",
           "PropertyId": 100063757,
           "UnitCount": "32",
-          "UnitsAvailable": "12",
+          "UnitsAvailable": "13",
           "UnitTypes": {
             "UnitType": [
               {
@@ -16291,7 +16291,7 @@
           "Name": "Juniper",
           "PropertyId": 100044732,
           "UnitCount": "20",
-          "UnitsAvailable": "1",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -16733,7 +16733,7 @@
           "Name": "Pimento",
           "PropertyId": 100011095,
           "UnitCount": "51",
-          "UnitsAvailable": "6",
+          "UnitsAvailable": "8",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20237,6 +20237,174 @@
               "IDScopeType": "sender",
               "IDType": "Floorplan ID"
             },
+            "IDValue": 1767
+          },
+          "Name": "Myrtle",
+          "PropertyId": 100011081,
+          "UnitCount": "24",
+          "UnitsAvailable": "5",
+          "UnitTypes": {
+            "UnitType": [
+              {
+                "@attributes": {
+                  "Id": 1558
+                },
+                "@value": "C2a"
+              }
+            ]
+          },
+          "IsDisabled": false,
+          "Room": [
+            {
+              "@attributes": {
+                "RoomType": "Bedroom"
+              },
+              "Count": 3
+            },
+            {
+              "@attributes": {
+                "RoomType": "Bathroom"
+              },
+              "Count": 3
+            }
+          ],
+          "SquareFeet": {
+            "@attributes": {
+              "Max": 1421,
+              "Min": 1421
+            }
+          },
+          "MarketRent": {
+            "@attributes": {
+              "Max": 2115,
+              "Min": 2115
+            }
+          },
+          "Deposit": {
+            "@attributes": {
+              "DepositType": "security deposit"
+            },
+            "Amount": {
+              "@attributes": {
+                "AmountType": "MonthMultiple"
+              },
+              "ValueRange": {
+                "@attributes": {
+                  "Min": 750,
+                  "Max": 750
+                }
+              }
+            }
+          },
+          "File": [
+            {
+              "FileType": "Floorplan",
+              "@attributes": {
+                "FileID": 4842,
+                "Active": "true"
+              },
+              "Description": "2D Floor Plan",
+              "Name": "Myrtle_T_3B_Flex_3B_1421.jpg",
+              "Caption": "Myrtle",
+              "Format": "jpg",
+              "Width": "1280",
+              "Height": "854",
+              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/10/07/075118/6703e756181040.48565349389.jpg",
+              "IsDefault": true
+            }
+          ]
+        },
+        {
+          "Identification": {
+            "@attributes": {
+              "IDRank": "primary",
+              "IDScopeType": "sender",
+              "IDType": "Floorplan ID"
+            },
+            "IDValue": 1770
+          },
+          "Name": "Ginger",
+          "PropertyId": 100011081,
+          "UnitCount": "74",
+          "UnitsAvailable": "11",
+          "UnitTypes": {
+            "UnitType": [
+              {
+                "@attributes": {
+                  "Id": 1554
+                },
+                "@value": "B1"
+              }
+            ]
+          },
+          "IsDisabled": false,
+          "Room": [
+            {
+              "@attributes": {
+                "RoomType": "Bedroom"
+              },
+              "Count": 2
+            },
+            {
+              "@attributes": {
+                "RoomType": "Bathroom"
+              },
+              "Count": 2
+            }
+          ],
+          "SquareFeet": {
+            "@attributes": {
+              "Max": 1020,
+              "Min": 1020
+            }
+          },
+          "MarketRent": {
+            "@attributes": {
+              "Max": 1875,
+              "Min": 1810
+            }
+          },
+          "Deposit": {
+            "@attributes": {
+              "DepositType": "security deposit"
+            },
+            "Amount": {
+              "@attributes": {
+                "AmountType": "MonthMultiple"
+              },
+              "ValueRange": {
+                "@attributes": {
+                  "Min": 650,
+                  "Max": 650
+                }
+              }
+            }
+          },
+          "File": [
+            {
+              "FileType": "Floorplan",
+              "@attributes": {
+                "FileID": 4841,
+                "Active": "true"
+              },
+              "Description": "2D Floor Plan",
+              "Name": "Ginger_S_2B_2B_1020.jpg",
+              "Caption": "Ginger",
+              "Format": "jpg",
+              "Width": "1280",
+              "Height": "863",
+              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/10/07/075050/6703e73a990929.51359015956.jpg",
+              "IsDefault": true
+            }
+          ]
+        },
+        {
+          "Identification": {
+            "@attributes": {
+              "IDRank": "primary",
+              "IDScopeType": "sender",
+              "IDType": "Floorplan ID"
+            },
             "IDValue": 1768
           },
           "Name": "Carraway",
@@ -20332,7 +20500,7 @@
           "Name": "Poppy",
           "PropertyId": 100011081,
           "UnitCount": "49",
-          "UnitsAvailable": "11",
+          "UnitsAvailable": "10",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20400,174 +20568,6 @@
               "Width": "1275",
               "Height": "850",
               "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/10/07/075206/6703e786a3d8e2.96929140226.jpg",
-              "IsDefault": true
-            }
-          ]
-        },
-        {
-          "Identification": {
-            "@attributes": {
-              "IDRank": "primary",
-              "IDScopeType": "sender",
-              "IDType": "Floorplan ID"
-            },
-            "IDValue": 1767
-          },
-          "Name": "Myrtle",
-          "PropertyId": 100011081,
-          "UnitCount": "24",
-          "UnitsAvailable": "5",
-          "UnitTypes": {
-            "UnitType": [
-              {
-                "@attributes": {
-                  "Id": 1558
-                },
-                "@value": "C2a"
-              }
-            ]
-          },
-          "IsDisabled": false,
-          "Room": [
-            {
-              "@attributes": {
-                "RoomType": "Bedroom"
-              },
-              "Count": 3
-            },
-            {
-              "@attributes": {
-                "RoomType": "Bathroom"
-              },
-              "Count": 3
-            }
-          ],
-          "SquareFeet": {
-            "@attributes": {
-              "Max": 1421,
-              "Min": 1421
-            }
-          },
-          "MarketRent": {
-            "@attributes": {
-              "Max": 2115,
-              "Min": 2115
-            }
-          },
-          "Deposit": {
-            "@attributes": {
-              "DepositType": "security deposit"
-            },
-            "Amount": {
-              "@attributes": {
-                "AmountType": "MonthMultiple"
-              },
-              "ValueRange": {
-                "@attributes": {
-                  "Min": 750,
-                  "Max": 750
-                }
-              }
-            }
-          },
-          "File": [
-            {
-              "FileType": "Floorplan",
-              "@attributes": {
-                "FileID": 4842,
-                "Active": "true"
-              },
-              "Description": "2D Floor Plan",
-              "Name": "Myrtle_T_3B_Flex_3B_1421.jpg",
-              "Caption": "Myrtle",
-              "Format": "jpg",
-              "Width": "1280",
-              "Height": "854",
-              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/10/07/075118/6703e756181040.48565349389.jpg",
-              "IsDefault": true
-            }
-          ]
-        },
-        {
-          "Identification": {
-            "@attributes": {
-              "IDRank": "primary",
-              "IDScopeType": "sender",
-              "IDType": "Floorplan ID"
-            },
-            "IDValue": 1770
-          },
-          "Name": "Ginger",
-          "PropertyId": 100011081,
-          "UnitCount": "74",
-          "UnitsAvailable": "9",
-          "UnitTypes": {
-            "UnitType": [
-              {
-                "@attributes": {
-                  "Id": 1554
-                },
-                "@value": "B1"
-              }
-            ]
-          },
-          "IsDisabled": false,
-          "Room": [
-            {
-              "@attributes": {
-                "RoomType": "Bedroom"
-              },
-              "Count": 2
-            },
-            {
-              "@attributes": {
-                "RoomType": "Bathroom"
-              },
-              "Count": 2
-            }
-          ],
-          "SquareFeet": {
-            "@attributes": {
-              "Max": 1020,
-              "Min": 1020
-            }
-          },
-          "MarketRent": {
-            "@attributes": {
-              "Max": 1875,
-              "Min": 1810
-            }
-          },
-          "Deposit": {
-            "@attributes": {
-              "DepositType": "security deposit"
-            },
-            "Amount": {
-              "@attributes": {
-                "AmountType": "MonthMultiple"
-              },
-              "ValueRange": {
-                "@attributes": {
-                  "Min": 650,
-                  "Max": 650
-                }
-              }
-            }
-          },
-          "File": [
-            {
-              "FileType": "Floorplan",
-              "@attributes": {
-                "FileID": 4841,
-                "Active": "true"
-              },
-              "Description": "2D Floor Plan",
-              "Name": "Ginger_S_2B_2B_1020.jpg",
-              "Caption": "Ginger",
-              "Format": "jpg",
-              "Width": "1280",
-              "Height": "863",
-              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/10/07/075050/6703e73a990929.51359015956.jpg",
               "IsDefault": true
             }
           ]
@@ -21577,7 +21577,7 @@
           "Name": "Pimento",
           "PropertyId": 100011097,
           "UnitCount": "59",
-          "UnitsAvailable": "7",
+          "UnitsAvailable": "6",
           "UnitTypes": {
             "UnitType": [
               {
@@ -22293,7 +22293,7 @@
           "Name": "Saffron",
           "PropertyId": 100058318,
           "UnitCount": "37",
-          "UnitsAvailable": "2",
+          "UnitsAvailable": "3",
           "UnitTypes": {
             "UnitType": [
               {
@@ -22328,7 +22328,7 @@
           "MarketRent": {
             "@attributes": {
               "Max": 2099,
-              "Min": 2099
+              "Min": 1899
             }
           },
           "Deposit": {
@@ -25618,7 +25618,7 @@
           "Name": "Poppy",
           "PropertyId": 100042446,
           "UnitCount": "38",
-          "UnitsAvailable": "2",
+          "UnitsAvailable": "0",
           "UnitTypes": {
             "UnitType": [
               {
@@ -25653,7 +25653,7 @@
           "MarketRent": {
             "@attributes": {
               "Max": 1945,
-              "Min": 1925
+              "Min": 1945
             }
           },
           "Deposit": {
@@ -25786,7 +25786,7 @@
           "Name": "Myrtle",
           "PropertyId": 100042446,
           "UnitCount": "19",
-          "UnitsAvailable": "2",
+          "UnitsAvailable": "1",
           "UnitTypes": {
             "UnitType": [
               {
@@ -29105,7 +29105,7 @@
           "Name": "Parsley",
           "PropertyId": 100011099,
           "UnitCount": "12",
-          "UnitsAvailable": "3",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -29465,7 +29465,7 @@
           "PropertyId": 100011100,
           "Comment": "Rosemary",
           "UnitCount": "30",
-          "UnitsAvailable": "10",
+          "UnitsAvailable": "9",
           "UnitTypes": {
             "UnitType": [
               {
@@ -29549,90 +29549,6 @@
               "IDScopeType": "sender",
               "IDType": "Floorplan ID"
             },
-            "IDValue": 1650
-          },
-          "Name": "Bayleave",
-          "PropertyId": 100011101,
-          "UnitCount": "35",
-          "UnitsAvailable": "3",
-          "UnitTypes": {
-            "UnitType": [
-              {
-                "@attributes": {
-                  "Id": 1436
-                },
-                "@value": "Bayleave"
-              }
-            ]
-          },
-          "IsDisabled": false,
-          "Room": [
-            {
-              "@attributes": {
-                "RoomType": "Bedroom"
-              },
-              "Count": 3
-            },
-            {
-              "@attributes": {
-                "RoomType": "Bathroom"
-              },
-              "Count": 2
-            }
-          ],
-          "SquareFeet": {
-            "@attributes": {
-              "Max": 1489,
-              "Min": 1489
-            }
-          },
-          "MarketRent": {
-            "@attributes": {
-              "Max": 1999,
-              "Min": 1870
-            }
-          },
-          "Deposit": {
-            "@attributes": {
-              "DepositType": "security deposit"
-            },
-            "Amount": {
-              "@attributes": {
-                "AmountType": "MonthMultiple"
-              },
-              "ValueRange": {
-                "@attributes": {
-                  "Min": 750,
-                  "Max": 750
-                }
-              }
-            }
-          },
-          "File": [
-            {
-              "FileType": "Floorplan",
-              "@attributes": {
-                "FileID": 3550,
-                "Active": "true"
-              },
-              "Description": "2D Floor Plan",
-              "Name": "Bayleave_OO_3B_2B_1489.jpg",
-              "Caption": "Bayleave",
-              "Format": "jpg",
-              "Width": "1919",
-              "Height": "1296",
-              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/09/03/024554/66d77582b70340.67482963700.jpg",
-              "IsDefault": true
-            }
-          ]
-        },
-        {
-          "Identification": {
-            "@attributes": {
-              "IDRank": "primary",
-              "IDScopeType": "sender",
-              "IDType": "Floorplan ID"
-            },
             "IDValue": 1653
           },
           "Name": "Anise",
@@ -29706,6 +29622,90 @@
               "Width": "1914",
               "Height": "1292",
               "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/09/03/024413/66d7751daddbf4.39180251543.jpg",
+              "IsDefault": true
+            }
+          ]
+        },
+        {
+          "Identification": {
+            "@attributes": {
+              "IDRank": "primary",
+              "IDScopeType": "sender",
+              "IDType": "Floorplan ID"
+            },
+            "IDValue": 1650
+          },
+          "Name": "Bayleave",
+          "PropertyId": 100011101,
+          "UnitCount": "35",
+          "UnitsAvailable": "3",
+          "UnitTypes": {
+            "UnitType": [
+              {
+                "@attributes": {
+                  "Id": 1436
+                },
+                "@value": "Bayleave"
+              }
+            ]
+          },
+          "IsDisabled": false,
+          "Room": [
+            {
+              "@attributes": {
+                "RoomType": "Bedroom"
+              },
+              "Count": 3
+            },
+            {
+              "@attributes": {
+                "RoomType": "Bathroom"
+              },
+              "Count": 2
+            }
+          ],
+          "SquareFeet": {
+            "@attributes": {
+              "Max": 1489,
+              "Min": 1489
+            }
+          },
+          "MarketRent": {
+            "@attributes": {
+              "Max": 1999,
+              "Min": 1870
+            }
+          },
+          "Deposit": {
+            "@attributes": {
+              "DepositType": "security deposit"
+            },
+            "Amount": {
+              "@attributes": {
+                "AmountType": "MonthMultiple"
+              },
+              "ValueRange": {
+                "@attributes": {
+                  "Min": 750,
+                  "Max": 750
+                }
+              }
+            }
+          },
+          "File": [
+            {
+              "FileType": "Floorplan",
+              "@attributes": {
+                "FileID": 3550,
+                "Active": "true"
+              },
+              "Description": "2D Floor Plan",
+              "Name": "Bayleave_OO_3B_2B_1489.jpg",
+              "Caption": "Bayleave",
+              "Format": "jpg",
+              "Width": "1919",
+              "Height": "1296",
+              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/09/03/024554/66d77582b70340.67482963700.jpg",
               "IsDefault": true
             }
           ]
