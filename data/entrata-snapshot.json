@@ -1,5 +1,5 @@
 {
-  "__generatedAt": "2026-04-23T04:08:27.966Z",
+  "__generatedAt": "2026-04-24T04:10:53.098Z",
   "__propertyCount": 34,
   "properties": [
     {
@@ -472,7 +472,7 @@
           "Name": "Sesame",
           "PropertyId": 100011083,
           "UnitCount": "21",
-          "UnitsAvailable": "4",
+          "UnitsAvailable": "3",
           "UnitTypes": {
             "UnitType": [
               {
@@ -1742,7 +1742,7 @@
           "PropertyId": 100011086,
           "Comment": "Coriander",
           "UnitCount": "26",
-          "UnitsAvailable": "0",
+          "UnitsAvailable": "1",
           "UnitTypes": {
             "UnitType": [
               {
@@ -2642,7 +2642,7 @@
           "Name": "Myrtle",
           "PropertyId": 100027880,
           "UnitCount": "16",
-          "UnitsAvailable": "3",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -2845,8 +2845,8 @@
           },
           "Name": "Ginger",
           "PropertyId": 100027880,
-          "UnitCount": "92",
-          "UnitsAvailable": "7",
+          "UnitCount": "93",
+          "UnitsAvailable": "8",
           "UnitTypes": {
             "UnitType": [
               {
@@ -5877,7 +5877,7 @@
           "PropertyId": 100011088,
           "Comment": "Juniper",
           "UnitCount": "44",
-          "UnitsAvailable": "7",
+          "UnitsAvailable": "6",
           "UnitTypes": {
             "UnitType": [
               {
@@ -6154,7 +6154,7 @@
           "PropertyId": 100011089,
           "Comment": "Saffron",
           "UnitCount": "15",
-          "UnitsAvailable": "4",
+          "UnitsAvailable": "3",
           "UnitTypes": {
             "UnitType": [
               {
@@ -6877,7 +6877,7 @@
           "Name": "Lemon",
           "PropertyId": 100011091,
           "UnitCount": "52",
-          "UnitsAvailable": "2",
+          "UnitsAvailable": "3",
           "UnitTypes": {
             "UnitType": [
               {
@@ -6961,7 +6961,7 @@
           "Name": "Peppermint",
           "PropertyId": 100011091,
           "UnitCount": "14",
-          "UnitsAvailable": "5",
+          "UnitsAvailable": "4",
           "UnitTypes": {
             "UnitType": [
               {
@@ -6996,7 +6996,7 @@
           "MarketRent": {
             "@attributes": {
               "Max": 2250,
-              "Min": 2079
+              "Min": 2250
             }
           },
           "Deposit": {
@@ -7164,7 +7164,7 @@
           "MarketRent": {
             "@attributes": {
               "Max": 2286,
-              "Min": 2286
+              "Min": 2104
             }
           },
           "Deposit": {
@@ -7403,7 +7403,7 @@
           "Name": "Clove",
           "PropertyId": 100042447,
           "UnitCount": "47",
-          "UnitsAvailable": "6",
+          "UnitsAvailable": "5",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7677,7 +7677,7 @@
           "Name": "Pimento",
           "PropertyId": 100011092,
           "UnitCount": "119",
-          "UnitsAvailable": "13",
+          "UnitsAvailable": "12",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7761,7 +7761,7 @@
           "Name": "Chive",
           "PropertyId": 100011092,
           "UnitCount": "70",
-          "UnitsAvailable": "9",
+          "UnitsAvailable": "8",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7867,7 +7867,7 @@
           "Name": "Juniper",
           "PropertyId": 100011093,
           "UnitCount": "73",
-          "UnitsAvailable": "3",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7951,7 +7951,7 @@
           "Name": "Myrtle",
           "PropertyId": 100011093,
           "UnitCount": "29",
-          "UnitsAvailable": "8",
+          "UnitsAvailable": "9",
           "UnitTypes": {
             "UnitType": [
               {
@@ -9004,7 +9004,7 @@
           "Name": "Clove",
           "PropertyId": 100027883,
           "UnitCount": "148",
-          "UnitsAvailable": "18",
+          "UnitsAvailable": "17",
           "UnitTypes": {
             "UnitType": [
               {
@@ -9172,7 +9172,7 @@
           "Name": "Lavender",
           "PropertyId": 100027883,
           "UnitCount": "130",
-          "UnitsAvailable": "10",
+          "UnitsAvailable": "11",
           "UnitTypes": {
             "UnitType": [
               {
@@ -9277,7 +9277,7 @@
           "Name": "Poppy",
           "PropertyId": 100027881,
           "UnitCount": "66",
-          "UnitsAvailable": "2",
+          "UnitsAvailable": "3",
           "UnitTypes": {
             "UnitType": [
               {
@@ -9312,7 +9312,7 @@
           "MarketRent": {
             "@attributes": {
               "Max": 2125,
-              "Min": 2125
+              "Min": 2070
             }
           },
           "Deposit": {
@@ -9619,7 +9619,7 @@
           "Name": "Myrtle",
           "PropertyId": 100027881,
           "UnitCount": "32",
-          "UnitsAvailable": "3",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -14622,7 +14622,7 @@
           "Name": "Chicory",
           "PropertyId": 100096103,
           "UnitCount": "34",
-          "UnitsAvailable": "7",
+          "UnitsAvailable": "8",
           "UnitTypes": {
             "UnitType": [
               {
@@ -14706,7 +14706,7 @@
           "Name": "Basil",
           "PropertyId": 100096103,
           "UnitCount": "26",
-          "UnitsAvailable": "1",
+          "UnitsAvailable": "0",
           "UnitTypes": {
             "UnitType": [
               {
@@ -15064,7 +15064,7 @@
           "Name": "Myrtle",
           "PropertyId": 100063757,
           "UnitCount": "32",
-          "UnitsAvailable": "13",
+          "UnitsAvailable": "12",
           "UnitTypes": {
             "UnitType": [
               {
@@ -16459,7 +16459,7 @@
           "Name": "Bayleave",
           "PropertyId": 100044732,
           "UnitCount": "8",
-          "UnitsAvailable": "0",
+          "UnitsAvailable": "1",
           "UnitTypes": {
             "UnitType": [
               {
@@ -16527,6 +16527,90 @@
               "Width": "1920",
               "Height": "1309",
               "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/12/19/062002/67641d82bb4b28.51581399820.jpg",
+              "IsDefault": true
+            }
+          ]
+        },
+        {
+          "Identification": {
+            "@attributes": {
+              "IDRank": "primary",
+              "IDScopeType": "sender",
+              "IDType": "Floorplan ID"
+            },
+            "IDValue": 1777
+          },
+          "Name": "Clove",
+          "PropertyId": 100044732,
+          "UnitCount": "31",
+          "UnitsAvailable": "0",
+          "UnitTypes": {
+            "UnitType": [
+              {
+                "@attributes": {
+                  "Id": 1563
+                },
+                "@value": "Clove"
+              }
+            ]
+          },
+          "IsDisabled": false,
+          "Room": [
+            {
+              "@attributes": {
+                "RoomType": "Bedroom"
+              },
+              "Count": 2
+            },
+            {
+              "@attributes": {
+                "RoomType": "Bathroom"
+              },
+              "Count": 2.5
+            }
+          ],
+          "SquareFeet": {
+            "@attributes": {
+              "Max": 1332,
+              "Min": 1332
+            }
+          },
+          "MarketRent": {
+            "@attributes": {
+              "Max": 2065,
+              "Min": 2015
+            }
+          },
+          "Deposit": {
+            "@attributes": {
+              "DepositType": "security deposit"
+            },
+            "Amount": {
+              "@attributes": {
+                "AmountType": "MonthMultiple"
+              },
+              "ValueRange": {
+                "@attributes": {
+                  "Min": 650,
+                  "Max": 650
+                }
+              }
+            }
+          },
+          "File": [
+            {
+              "FileType": "Floorplan",
+              "@attributes": {
+                "FileID": 10414,
+                "Active": "true"
+              },
+              "Description": "2D Floor Plan",
+              "Name": "Clove_2B_2.5B_1332_TH.jpg",
+              "Caption": "Clove",
+              "Format": "jpg",
+              "Width": "1920",
+              "Height": "1301",
+              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/12/19/062032/67641da0691727.24741789356.jpg",
               "IsDefault": true
             }
           ]
@@ -16611,90 +16695,6 @@
               "Width": "1920",
               "Height": "1300",
               "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/12/23/082756/6769817c8b5647.72242609873.jpg",
-              "IsDefault": true
-            }
-          ]
-        },
-        {
-          "Identification": {
-            "@attributes": {
-              "IDRank": "primary",
-              "IDScopeType": "sender",
-              "IDType": "Floorplan ID"
-            },
-            "IDValue": 1777
-          },
-          "Name": "Clove",
-          "PropertyId": 100044732,
-          "UnitCount": "31",
-          "UnitsAvailable": "1",
-          "UnitTypes": {
-            "UnitType": [
-              {
-                "@attributes": {
-                  "Id": 1563
-                },
-                "@value": "Clove"
-              }
-            ]
-          },
-          "IsDisabled": false,
-          "Room": [
-            {
-              "@attributes": {
-                "RoomType": "Bedroom"
-              },
-              "Count": 2
-            },
-            {
-              "@attributes": {
-                "RoomType": "Bathroom"
-              },
-              "Count": 2.5
-            }
-          ],
-          "SquareFeet": {
-            "@attributes": {
-              "Max": 1332,
-              "Min": 1332
-            }
-          },
-          "MarketRent": {
-            "@attributes": {
-              "Max": 2017,
-              "Min": 2017
-            }
-          },
-          "Deposit": {
-            "@attributes": {
-              "DepositType": "security deposit"
-            },
-            "Amount": {
-              "@attributes": {
-                "AmountType": "MonthMultiple"
-              },
-              "ValueRange": {
-                "@attributes": {
-                  "Min": 650,
-                  "Max": 650
-                }
-              }
-            }
-          },
-          "File": [
-            {
-              "FileType": "Floorplan",
-              "@attributes": {
-                "FileID": 10414,
-                "Active": "true"
-              },
-              "Description": "2D Floor Plan",
-              "Name": "Clove_2B_2.5B_1332_TH.jpg",
-              "Caption": "Clove",
-              "Format": "jpg",
-              "Width": "1920",
-              "Height": "1301",
-              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/12/19/062032/67641da0691727.24741789356.jpg",
               "IsDefault": true
             }
           ]
@@ -16901,7 +16901,7 @@
           "Name": "Lavender",
           "PropertyId": 100011095,
           "UnitCount": "27",
-          "UnitsAvailable": "2",
+          "UnitsAvailable": "1",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20410,7 +20410,7 @@
           "Name": "Carraway",
           "PropertyId": 100011081,
           "UnitCount": "74",
-          "UnitsAvailable": "11",
+          "UnitsAvailable": "9",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20500,7 +20500,7 @@
           "Name": "Poppy",
           "PropertyId": 100011081,
           "UnitCount": "49",
-          "UnitsAvailable": "10",
+          "UnitsAvailable": "8",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20584,7 +20584,7 @@
           "Name": "Nutmeg",
           "PropertyId": 100011081,
           "UnitCount": "26",
-          "UnitsAvailable": "7",
+          "UnitsAvailable": "8",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20690,7 +20690,7 @@
           "Name": "Parsley",
           "PropertyId": 100011096,
           "UnitCount": "36",
-          "UnitsAvailable": "1",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20853,6 +20853,90 @@
               "IDScopeType": "sender",
               "IDType": "Floorplan ID"
             },
+            "IDValue": 1545
+          },
+          "Name": "Nutmeg",
+          "PropertyId": 100011096,
+          "UnitCount": "40",
+          "UnitsAvailable": "1",
+          "UnitTypes": {
+            "UnitType": [
+              {
+                "@attributes": {
+                  "Id": 1333
+                },
+                "@value": "C3a"
+              }
+            ]
+          },
+          "IsDisabled": false,
+          "Room": [
+            {
+              "@attributes": {
+                "RoomType": "Bedroom"
+              },
+              "Count": 3
+            },
+            {
+              "@attributes": {
+                "RoomType": "Bathroom"
+              },
+              "Count": 2.5
+            }
+          ],
+          "SquareFeet": {
+            "@attributes": {
+              "Max": 1732,
+              "Min": 1732
+            }
+          },
+          "MarketRent": {
+            "@attributes": {
+              "Max": 1809,
+              "Min": 1809
+            }
+          },
+          "Deposit": {
+            "@attributes": {
+              "DepositType": "security deposit"
+            },
+            "Amount": {
+              "@attributes": {
+                "AmountType": "MonthMultiple"
+              },
+              "ValueRange": {
+                "@attributes": {
+                  "Min": 750,
+                  "Max": 750
+                }
+              }
+            }
+          },
+          "File": [
+            {
+              "FileType": "Floorplan",
+              "@attributes": {
+                "FileID": 681,
+                "Active": "true"
+              },
+              "Description": "2D Floor Plan",
+              "Name": "170210_100011096_64f10ced132e15.61595657493.jpg",
+              "Caption": "Nutmeg Floor Plan",
+              "Format": "jpg",
+              "Width": "640",
+              "Height": "480",
+              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/05/15/095043/170210_100011096_64f10ced132e15.61595657493.jpg",
+              "IsDefault": true
+            }
+          ]
+        },
+        {
+          "Identification": {
+            "@attributes": {
+              "IDRank": "primary",
+              "IDScopeType": "sender",
+              "IDType": "Floorplan ID"
+            },
             "IDValue": 1547
           },
           "Name": "Mint",
@@ -20926,90 +21010,6 @@
               "Width": "640",
               "Height": "480",
               "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/05/15/095043/170207_100011096_64f10c0fe32100.65426529170.jpg",
-              "IsDefault": true
-            }
-          ]
-        },
-        {
-          "Identification": {
-            "@attributes": {
-              "IDRank": "primary",
-              "IDScopeType": "sender",
-              "IDType": "Floorplan ID"
-            },
-            "IDValue": 1545
-          },
-          "Name": "Nutmeg",
-          "PropertyId": 100011096,
-          "UnitCount": "40",
-          "UnitsAvailable": "3",
-          "UnitTypes": {
-            "UnitType": [
-              {
-                "@attributes": {
-                  "Id": 1333
-                },
-                "@value": "C3a"
-              }
-            ]
-          },
-          "IsDisabled": false,
-          "Room": [
-            {
-              "@attributes": {
-                "RoomType": "Bedroom"
-              },
-              "Count": 3
-            },
-            {
-              "@attributes": {
-                "RoomType": "Bathroom"
-              },
-              "Count": 2.5
-            }
-          ],
-          "SquareFeet": {
-            "@attributes": {
-              "Max": 1732,
-              "Min": 1732
-            }
-          },
-          "MarketRent": {
-            "@attributes": {
-              "Max": 1859,
-              "Min": 1809
-            }
-          },
-          "Deposit": {
-            "@attributes": {
-              "DepositType": "security deposit"
-            },
-            "Amount": {
-              "@attributes": {
-                "AmountType": "MonthMultiple"
-              },
-              "ValueRange": {
-                "@attributes": {
-                  "Min": 750,
-                  "Max": 750
-                }
-              }
-            }
-          },
-          "File": [
-            {
-              "FileType": "Floorplan",
-              "@attributes": {
-                "FileID": 681,
-                "Active": "true"
-              },
-              "Description": "2D Floor Plan",
-              "Name": "170210_100011096_64f10ced132e15.61595657493.jpg",
-              "Caption": "Nutmeg Floor Plan",
-              "Format": "jpg",
-              "Width": "640",
-              "Height": "480",
-              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/05/15/095043/170210_100011096_64f10ced132e15.61595657493.jpg",
               "IsDefault": true
             }
           ]
@@ -21116,6 +21116,91 @@
               "Width": "1920",
               "Height": "1304",
               "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2025/10/20/012726/68f68d1db51da0.26495204477.jpg",
+              "IsDefault": true
+            }
+          ]
+        },
+        {
+          "Identification": {
+            "@attributes": {
+              "IDRank": "primary",
+              "IDScopeType": "sender",
+              "IDType": "Floorplan ID"
+            },
+            "IDValue": 2844
+          },
+          "Name": "Mint",
+          "PropertyId": 100063756,
+          "Comment": "The C2 Floor Plan epitomizes modern living in the heart of Tallahassee. This thoughtfully crafted 3 bed 3 bath layout spans a generous 1477 sq ft, seamlessly combining comfort and style. With features such as a sleek interior design and luxurious amenities, residents can enjoy an unparalleled living experience. Embrace the vibrant lifestyle of Tallahassee with this exceptional floor plan. Contact us today to schedule your tour.",
+          "UnitCount": "15",
+          "UnitsAvailable": "0",
+          "UnitTypes": {
+            "UnitType": [
+              {
+                "@attributes": {
+                  "Id": 2215
+                },
+                "@value": "Mint"
+              }
+            ]
+          },
+          "IsDisabled": false,
+          "Room": [
+            {
+              "@attributes": {
+                "RoomType": "Bedroom"
+              },
+              "Count": 3
+            },
+            {
+              "@attributes": {
+                "RoomType": "Bathroom"
+              },
+              "Count": 3
+            }
+          ],
+          "SquareFeet": {
+            "@attributes": {
+              "Max": 1477,
+              "Min": 1477
+            }
+          },
+          "MarketRent": {
+            "@attributes": {
+              "Max": 2105,
+              "Min": 2105
+            }
+          },
+          "Deposit": {
+            "@attributes": {
+              "DepositType": "security deposit"
+            },
+            "Amount": {
+              "@attributes": {
+                "AmountType": "MonthMultiple"
+              },
+              "ValueRange": {
+                "@attributes": {
+                  "Min": 750,
+                  "Max": 750
+                }
+              }
+            }
+          },
+          "File": [
+            {
+              "FileType": "Floorplan",
+              "@attributes": {
+                "FileID": 47864,
+                "Active": "true"
+              },
+              "Description": "2D Floor Plan",
+              "Name": "Covey Homes Tallahassee_Mint_TH.jpg",
+              "Caption": "Mint",
+              "Format": "jpg",
+              "Width": "1920",
+              "Height": "1301",
+              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2025/10/20/012845/68f68d6da598d1.11805675584.jpg",
               "IsDefault": true
             }
           ]
@@ -21296,98 +21381,13 @@
               "IDScopeType": "sender",
               "IDType": "Floorplan ID"
             },
-            "IDValue": 2844
-          },
-          "Name": "Mint",
-          "PropertyId": 100063756,
-          "Comment": "The C2 Floor Plan epitomizes modern living in the heart of Tallahassee. This thoughtfully crafted 3 bed 3 bath layout spans a generous 1477 sq ft, seamlessly combining comfort and style. With features such as a sleek interior design and luxurious amenities, residents can enjoy an unparalleled living experience. Embrace the vibrant lifestyle of Tallahassee with this exceptional floor plan. Contact us today to schedule your tour.",
-          "UnitCount": "15",
-          "UnitsAvailable": "0",
-          "UnitTypes": {
-            "UnitType": [
-              {
-                "@attributes": {
-                  "Id": 2215
-                },
-                "@value": "Mint"
-              }
-            ]
-          },
-          "IsDisabled": false,
-          "Room": [
-            {
-              "@attributes": {
-                "RoomType": "Bedroom"
-              },
-              "Count": 3
-            },
-            {
-              "@attributes": {
-                "RoomType": "Bathroom"
-              },
-              "Count": 3
-            }
-          ],
-          "SquareFeet": {
-            "@attributes": {
-              "Max": 1477,
-              "Min": 1477
-            }
-          },
-          "MarketRent": {
-            "@attributes": {
-              "Max": 2105,
-              "Min": 2105
-            }
-          },
-          "Deposit": {
-            "@attributes": {
-              "DepositType": "security deposit"
-            },
-            "Amount": {
-              "@attributes": {
-                "AmountType": "MonthMultiple"
-              },
-              "ValueRange": {
-                "@attributes": {
-                  "Min": 750,
-                  "Max": 750
-                }
-              }
-            }
-          },
-          "File": [
-            {
-              "FileType": "Floorplan",
-              "@attributes": {
-                "FileID": 47864,
-                "Active": "true"
-              },
-              "Description": "2D Floor Plan",
-              "Name": "Covey Homes Tallahassee_Mint_TH.jpg",
-              "Caption": "Mint",
-              "Format": "jpg",
-              "Width": "1920",
-              "Height": "1301",
-              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2025/10/20/012845/68f68d6da598d1.11805675584.jpg",
-              "IsDefault": true
-            }
-          ]
-        },
-        {
-          "Identification": {
-            "@attributes": {
-              "IDRank": "primary",
-              "IDScopeType": "sender",
-              "IDType": "Floorplan ID"
-            },
             "IDValue": 2840
           },
           "Name": "Nutmeg",
           "PropertyId": 100063756,
           "Comment": "The C3 Floor Plan offers a distinctive living experience in the heart of Tallahassee. This 3-bedroom, 2.5-bathroom layout spans 1523 sq ft, providing ample space for a modern lifestyle. Relish in high-end amenities including a state-of-the-art kitchen and open living spaces that are perfect for entertaining. Enjoy convenient access to local attractions and a vibrant community atmosphere. Contact us today to schedule your tour and envision your new lifestyle in the C3 Floor Plan.",
           "UnitCount": "30",
-          "UnitsAvailable": "1",
+          "UnitsAvailable": "0",
           "UnitTypes": {
             "UnitType": [
               {
@@ -21421,8 +21421,8 @@
           },
           "MarketRent": {
             "@attributes": {
-              "Max": 2560,
-              "Min": 2410
+              "Max": 2300,
+              "Min": 2300
             }
           },
           "Deposit": {
@@ -21493,7 +21493,7 @@
           "Name": "Chive",
           "PropertyId": 100011097,
           "UnitCount": "66",
-          "UnitsAvailable": "3",
+          "UnitsAvailable": "4",
           "UnitTypes": {
             "UnitType": [
               {
@@ -22293,7 +22293,7 @@
           "Name": "Saffron",
           "PropertyId": 100058318,
           "UnitCount": "37",
-          "UnitsAvailable": "3",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -22328,7 +22328,7 @@
           "MarketRent": {
             "@attributes": {
               "Max": 2099,
-              "Min": 1899
+              "Min": 2099
             }
           },
           "Deposit": {
@@ -25618,7 +25618,7 @@
           "Name": "Poppy",
           "PropertyId": 100042446,
           "UnitCount": "38",
-          "UnitsAvailable": "0",
+          "UnitsAvailable": "1",
           "UnitTypes": {
             "UnitType": [
               {
@@ -25652,8 +25652,8 @@
           },
           "MarketRent": {
             "@attributes": {
-              "Max": 1945,
-              "Min": 1945
+              "Max": 1925,
+              "Min": 1925
             }
           },
           "Deposit": {
@@ -25786,7 +25786,7 @@
           "Name": "Myrtle",
           "PropertyId": 100042446,
           "UnitCount": "19",
-          "UnitsAvailable": "1",
+          "UnitsAvailable": "3",
           "UnitTypes": {
             "UnitType": [
               {
@@ -28853,7 +28853,7 @@
           "Name": "Mint",
           "PropertyId": 100011099,
           "UnitCount": "14",
-          "UnitsAvailable": "1",
+          "UnitsAvailable": "0",
           "UnitTypes": {
             "UnitType": [
               {
@@ -28887,8 +28887,8 @@
           },
           "MarketRent": {
             "@attributes": {
-              "Max": 2254,
-              "Min": 2254
+              "Max": 2370,
+              "Min": 2295
             }
           },
           "Deposit": {
@@ -29554,7 +29554,7 @@
           "Name": "Anise",
           "PropertyId": 100011101,
           "UnitCount": "26",
-          "UnitsAvailable": "4",
+          "UnitsAvailable": "5",
           "UnitTypes": {
             "UnitType": [
               {
