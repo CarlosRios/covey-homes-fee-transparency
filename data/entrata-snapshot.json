@@ -1,5 +1,5 @@
 {
-  "__generatedAt": "2026-04-24T04:10:53.098Z",
+  "__generatedAt": "2026-04-25T04:03:09.089Z",
   "__propertyCount": 34,
   "properties": [
     {
@@ -388,7 +388,7 @@
           "Name": "Pimento",
           "PropertyId": 100011083,
           "UnitCount": "26",
-          "UnitsAvailable": "2",
+          "UnitsAvailable": "1",
           "UnitTypes": {
             "UnitType": [
               {
@@ -1104,7 +1104,7 @@
           "Name": "Sage",
           "PropertyId": 100011084,
           "UnitCount": "155",
-          "UnitsAvailable": "6",
+          "UnitsAvailable": "7",
           "UnitTypes": {
             "UnitType": [
               {
@@ -1459,6 +1459,91 @@
               "IDScopeType": "sender",
               "IDType": "Floorplan ID"
             },
+            "IDValue": 1695
+          },
+          "Name": "Peppercorn",
+          "PropertyId": 100011085,
+          "Comment": "Peppercorn",
+          "UnitCount": "2",
+          "UnitsAvailable": "1",
+          "UnitTypes": {
+            "UnitType": [
+              {
+                "@attributes": {
+                  "Id": 1481
+                },
+                "@value": "C7"
+              }
+            ]
+          },
+          "IsDisabled": false,
+          "Room": [
+            {
+              "@attributes": {
+                "RoomType": "Bedroom"
+              },
+              "Count": 3
+            },
+            {
+              "@attributes": {
+                "RoomType": "Bathroom"
+              },
+              "Count": 2
+            }
+          ],
+          "SquareFeet": {
+            "@attributes": {
+              "Max": 3031,
+              "Min": 3031
+            }
+          },
+          "MarketRent": {
+            "@attributes": {
+              "Max": 2950,
+              "Min": 2950
+            }
+          },
+          "Deposit": {
+            "@attributes": {
+              "DepositType": "security deposit"
+            },
+            "Amount": {
+              "@attributes": {
+                "AmountType": "MonthMultiple"
+              },
+              "ValueRange": {
+                "@attributes": {
+                  "Min": 500,
+                  "Max": 500
+                }
+              }
+            }
+          },
+          "File": [
+            {
+              "FileType": "Floorplan",
+              "@attributes": {
+                "FileID": 1825,
+                "Active": "true"
+              },
+              "Description": "2D Floor Plan",
+              "Name": "148209_100011085_63d15fc5025ad3.30856301283.jpg",
+              "Caption": "Peppercorn Floor Plan",
+              "Format": "jpg",
+              "Width": "1920",
+              "Height": "1440",
+              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/07/18/015939/148209_100011085_63d15fc5025ad3.30856301283.jpg",
+              "IsDefault": true
+            }
+          ]
+        },
+        {
+          "Identification": {
+            "@attributes": {
+              "IDRank": "primary",
+              "IDScopeType": "sender",
+              "IDType": "Floorplan ID"
+            },
             "IDValue": 1693
           },
           "Name": "Cayenne",
@@ -1533,91 +1618,6 @@
               "Width": "1920",
               "Height": "1440",
               "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/07/18/015939/148190_100011085_63d15868c31e20.83014346272.jpg",
-              "IsDefault": true
-            }
-          ]
-        },
-        {
-          "Identification": {
-            "@attributes": {
-              "IDRank": "primary",
-              "IDScopeType": "sender",
-              "IDType": "Floorplan ID"
-            },
-            "IDValue": 1695
-          },
-          "Name": "Peppercorn",
-          "PropertyId": 100011085,
-          "Comment": "Peppercorn",
-          "UnitCount": "2",
-          "UnitsAvailable": "0",
-          "UnitTypes": {
-            "UnitType": [
-              {
-                "@attributes": {
-                  "Id": 1481
-                },
-                "@value": "C7"
-              }
-            ]
-          },
-          "IsDisabled": false,
-          "Room": [
-            {
-              "@attributes": {
-                "RoomType": "Bedroom"
-              },
-              "Count": 3
-            },
-            {
-              "@attributes": {
-                "RoomType": "Bathroom"
-              },
-              "Count": 2
-            }
-          ],
-          "SquareFeet": {
-            "@attributes": {
-              "Max": 3031,
-              "Min": 3031
-            }
-          },
-          "MarketRent": {
-            "@attributes": {
-              "Max": 2700,
-              "Min": 2700
-            }
-          },
-          "Deposit": {
-            "@attributes": {
-              "DepositType": "security deposit"
-            },
-            "Amount": {
-              "@attributes": {
-                "AmountType": "MonthMultiple"
-              },
-              "ValueRange": {
-                "@attributes": {
-                  "Min": 500,
-                  "Max": 500
-                }
-              }
-            }
-          },
-          "File": [
-            {
-              "FileType": "Floorplan",
-              "@attributes": {
-                "FileID": 1825,
-                "Active": "true"
-              },
-              "Description": "2D Floor Plan",
-              "Name": "148209_100011085_63d15fc5025ad3.30856301283.jpg",
-              "Caption": "Peppercorn Floor Plan",
-              "Format": "jpg",
-              "Width": "1920",
-              "Height": "1440",
-              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2024/07/18/015939/148209_100011085_63d15fc5025ad3.30856301283.jpg",
               "IsDefault": true
             }
           ]
@@ -2846,7 +2846,7 @@
           "Name": "Ginger",
           "PropertyId": 100027880,
           "UnitCount": "93",
-          "UnitsAvailable": "8",
+          "UnitsAvailable": "9",
           "UnitTypes": {
             "UnitType": [
               {
@@ -2880,8 +2880,8 @@
           },
           "MarketRent": {
             "@attributes": {
-              "Max": 1653,
-              "Min": 1628
+              "Max": 1668,
+              "Min": 1643
             }
           },
           "File": [
@@ -6409,7 +6409,7 @@
           "PropertyId": 100011089,
           "Comment": "Thyme",
           "UnitCount": "21",
-          "UnitsAvailable": "1",
+          "UnitsAvailable": "0",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7403,7 +7403,7 @@
           "Name": "Clove",
           "PropertyId": 100042447,
           "UnitCount": "47",
-          "UnitsAvailable": "5",
+          "UnitsAvailable": "4",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7437,7 +7437,7 @@
           },
           "MarketRent": {
             "@attributes": {
-              "Max": 2154,
+              "Max": 2129,
               "Min": 2023
             }
           },
@@ -7593,7 +7593,7 @@
           "Name": "Sesame",
           "PropertyId": 100011092,
           "UnitCount": "46",
-          "UnitsAvailable": "0",
+          "UnitsAvailable": "1",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7867,7 +7867,7 @@
           "Name": "Juniper",
           "PropertyId": 100011093,
           "UnitCount": "73",
-          "UnitsAvailable": "2",
+          "UnitsAvailable": "3",
           "UnitTypes": {
             "UnitType": [
               {
@@ -9445,7 +9445,7 @@
           "Name": "Caraway",
           "PropertyId": 100027881,
           "UnitCount": "99",
-          "UnitsAvailable": "13",
+          "UnitsAvailable": "12",
           "UnitTypes": {
             "UnitType": [
               {
@@ -14980,7 +14980,7 @@
           "Name": "Caraway",
           "PropertyId": 100063757,
           "UnitCount": "98",
-          "UnitsAvailable": "17",
+          "UnitsAvailable": "16",
           "UnitTypes": {
             "UnitType": [
               {
@@ -15148,7 +15148,7 @@
           "Name": "Poppy",
           "PropertyId": 100063757,
           "UnitCount": "66",
-          "UnitsAvailable": "14",
+          "UnitsAvailable": "13",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20242,7 +20242,7 @@
           "Name": "Myrtle",
           "PropertyId": 100011081,
           "UnitCount": "24",
-          "UnitsAvailable": "5",
+          "UnitsAvailable": "4",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20326,7 +20326,7 @@
           "Name": "Ginger",
           "PropertyId": 100011081,
           "UnitCount": "74",
-          "UnitsAvailable": "11",
+          "UnitsAvailable": "9",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20410,7 +20410,7 @@
           "Name": "Carraway",
           "PropertyId": 100011081,
           "UnitCount": "74",
-          "UnitsAvailable": "9",
+          "UnitsAvailable": "5",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20500,7 +20500,7 @@
           "Name": "Poppy",
           "PropertyId": 100011081,
           "UnitCount": "49",
-          "UnitsAvailable": "8",
+          "UnitsAvailable": "9",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20584,7 +20584,7 @@
           "Name": "Nutmeg",
           "PropertyId": 100011081,
           "UnitCount": "26",
-          "UnitsAvailable": "8",
+          "UnitsAvailable": "7",
           "UnitTypes": {
             "UnitType": [
               {
@@ -21042,91 +21042,6 @@
               "IDScopeType": "sender",
               "IDType": "Floorplan ID"
             },
-            "IDValue": 2841
-          },
-          "Name": "Caraway",
-          "PropertyId": 100063756,
-          "Comment": "Experience the thoughtfully crafted B2 Floor Plan in vibrant Tallahassee, offering a well-structured 2 Bed 2 Bath layout spread over 1,060 sq ft. The B2 Floor Plan showcases modern amenities including a private balcony, in-unit laundry, and premium kitchen finishes to cater to your contemporary living desires. Enjoy the convenience of a lifestyle that balances comfort and innovation. Contact us today to schedule your tour of this exceptional floor plan.",
-          "UnitCount": "75",
-          "UnitsAvailable": "10",
-          "UnitTypes": {
-            "UnitType": [
-              {
-                "@attributes": {
-                  "Id": 2212
-                },
-                "@value": "Caraway"
-              }
-            ]
-          },
-          "IsDisabled": false,
-          "Room": [
-            {
-              "@attributes": {
-                "RoomType": "Bedroom"
-              },
-              "Count": 2
-            },
-            {
-              "@attributes": {
-                "RoomType": "Bathroom"
-              },
-              "Count": 2
-            }
-          ],
-          "SquareFeet": {
-            "@attributes": {
-              "Max": 1060,
-              "Min": 1060
-            }
-          },
-          "MarketRent": {
-            "@attributes": {
-              "Max": 1960,
-              "Min": 1795
-            }
-          },
-          "Deposit": {
-            "@attributes": {
-              "DepositType": "security deposit"
-            },
-            "Amount": {
-              "@attributes": {
-                "AmountType": "MonthMultiple"
-              },
-              "ValueRange": {
-                "@attributes": {
-                  "Min": 650,
-                  "Max": 650
-                }
-              }
-            }
-          },
-          "File": [
-            {
-              "FileType": "Floorplan",
-              "@attributes": {
-                "FileID": 47862,
-                "Active": "true"
-              },
-              "Description": "2D Floor Plan",
-              "Name": "Covey Homes Tallahassee_Caraway.jpg",
-              "Caption": "Caraway",
-              "Format": "jpg",
-              "Width": "1920",
-              "Height": "1304",
-              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2025/10/20/012726/68f68d1db51da0.26495204477.jpg",
-              "IsDefault": true
-            }
-          ]
-        },
-        {
-          "Identification": {
-            "@attributes": {
-              "IDRank": "primary",
-              "IDScopeType": "sender",
-              "IDType": "Floorplan ID"
-            },
             "IDValue": 2844
           },
           "Name": "Mint",
@@ -21201,6 +21116,91 @@
               "Width": "1920",
               "Height": "1301",
               "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2025/10/20/012845/68f68d6da598d1.11805675584.jpg",
+              "IsDefault": true
+            }
+          ]
+        },
+        {
+          "Identification": {
+            "@attributes": {
+              "IDRank": "primary",
+              "IDScopeType": "sender",
+              "IDType": "Floorplan ID"
+            },
+            "IDValue": 2841
+          },
+          "Name": "Caraway",
+          "PropertyId": 100063756,
+          "Comment": "Experience the thoughtfully crafted B2 Floor Plan in vibrant Tallahassee, offering a well-structured 2 Bed 2 Bath layout spread over 1,060 sq ft. The B2 Floor Plan showcases modern amenities including a private balcony, in-unit laundry, and premium kitchen finishes to cater to your contemporary living desires. Enjoy the convenience of a lifestyle that balances comfort and innovation. Contact us today to schedule your tour of this exceptional floor plan.",
+          "UnitCount": "75",
+          "UnitsAvailable": "9",
+          "UnitTypes": {
+            "UnitType": [
+              {
+                "@attributes": {
+                  "Id": 2212
+                },
+                "@value": "Caraway"
+              }
+            ]
+          },
+          "IsDisabled": false,
+          "Room": [
+            {
+              "@attributes": {
+                "RoomType": "Bedroom"
+              },
+              "Count": 2
+            },
+            {
+              "@attributes": {
+                "RoomType": "Bathroom"
+              },
+              "Count": 2
+            }
+          ],
+          "SquareFeet": {
+            "@attributes": {
+              "Max": 1060,
+              "Min": 1060
+            }
+          },
+          "MarketRent": {
+            "@attributes": {
+              "Max": 2010,
+              "Min": 1795
+            }
+          },
+          "Deposit": {
+            "@attributes": {
+              "DepositType": "security deposit"
+            },
+            "Amount": {
+              "@attributes": {
+                "AmountType": "MonthMultiple"
+              },
+              "ValueRange": {
+                "@attributes": {
+                  "Min": 650,
+                  "Max": 650
+                }
+              }
+            }
+          },
+          "File": [
+            {
+              "FileType": "Floorplan",
+              "@attributes": {
+                "FileID": 47862,
+                "Active": "true"
+              },
+              "Description": "2D Floor Plan",
+              "Name": "Covey Homes Tallahassee_Caraway.jpg",
+              "Caption": "Caraway",
+              "Format": "jpg",
+              "Width": "1920",
+              "Height": "1304",
+              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2025/10/20/012726/68f68d1db51da0.26495204477.jpg",
               "IsDefault": true
             }
           ]
@@ -21297,90 +21297,6 @@
               "IDScopeType": "sender",
               "IDType": "Floorplan ID"
             },
-            "IDValue": 2842
-          },
-          "Name": "Ginger",
-          "PropertyId": 100063756,
-          "UnitCount": "47",
-          "UnitsAvailable": "5",
-          "UnitTypes": {
-            "UnitType": [
-              {
-                "@attributes": {
-                  "Id": 2213
-                },
-                "@value": "Ginger"
-              }
-            ]
-          },
-          "IsDisabled": false,
-          "Room": [
-            {
-              "@attributes": {
-                "RoomType": "Bedroom"
-              },
-              "Count": 2
-            },
-            {
-              "@attributes": {
-                "RoomType": "Bathroom"
-              },
-              "Count": 2
-            }
-          ],
-          "SquareFeet": {
-            "@attributes": {
-              "Max": 1000,
-              "Min": 1000
-            }
-          },
-          "MarketRent": {
-            "@attributes": {
-              "Max": 2080,
-              "Min": 1880
-            }
-          },
-          "Deposit": {
-            "@attributes": {
-              "DepositType": "security deposit"
-            },
-            "Amount": {
-              "@attributes": {
-                "AmountType": "MonthMultiple"
-              },
-              "ValueRange": {
-                "@attributes": {
-                  "Min": 650,
-                  "Max": 650
-                }
-              }
-            }
-          },
-          "File": [
-            {
-              "FileType": "Floorplan",
-              "@attributes": {
-                "FileID": 47863,
-                "Active": "true"
-              },
-              "Description": "2D Floor Plan",
-              "Name": "Covey Homes Tallahassee_Ginger.jpg",
-              "Caption": "Ginger",
-              "Format": "jpg",
-              "Width": "1920",
-              "Height": "1304",
-              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2025/10/20/012804/68f68d449a4038.02974923553.jpg",
-              "IsDefault": true
-            }
-          ]
-        },
-        {
-          "Identification": {
-            "@attributes": {
-              "IDRank": "primary",
-              "IDScopeType": "sender",
-              "IDType": "Floorplan ID"
-            },
             "IDValue": 2840
           },
           "Name": "Nutmeg",
@@ -21455,6 +21371,90 @@
               "Width": "1920",
               "Height": "1304",
               "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2025/10/20/013006/68f68dbe58c544.85409038434.jpg",
+              "IsDefault": true
+            }
+          ]
+        },
+        {
+          "Identification": {
+            "@attributes": {
+              "IDRank": "primary",
+              "IDScopeType": "sender",
+              "IDType": "Floorplan ID"
+            },
+            "IDValue": 2842
+          },
+          "Name": "Ginger",
+          "PropertyId": 100063756,
+          "UnitCount": "47",
+          "UnitsAvailable": "5",
+          "UnitTypes": {
+            "UnitType": [
+              {
+                "@attributes": {
+                  "Id": 2213
+                },
+                "@value": "Ginger"
+              }
+            ]
+          },
+          "IsDisabled": false,
+          "Room": [
+            {
+              "@attributes": {
+                "RoomType": "Bedroom"
+              },
+              "Count": 2
+            },
+            {
+              "@attributes": {
+                "RoomType": "Bathroom"
+              },
+              "Count": 2
+            }
+          ],
+          "SquareFeet": {
+            "@attributes": {
+              "Max": 1000,
+              "Min": 1000
+            }
+          },
+          "MarketRent": {
+            "@attributes": {
+              "Max": 2080,
+              "Min": 1880
+            }
+          },
+          "Deposit": {
+            "@attributes": {
+              "DepositType": "security deposit"
+            },
+            "Amount": {
+              "@attributes": {
+                "AmountType": "MonthMultiple"
+              },
+              "ValueRange": {
+                "@attributes": {
+                  "Min": 650,
+                  "Max": 650
+                }
+              }
+            }
+          },
+          "File": [
+            {
+              "FileType": "Floorplan",
+              "@attributes": {
+                "FileID": 47863,
+                "Active": "true"
+              },
+              "Description": "2D Floor Plan",
+              "Name": "Covey Homes Tallahassee_Ginger.jpg",
+              "Caption": "Ginger",
+              "Format": "jpg",
+              "Width": "1920",
+              "Height": "1304",
+              "Src": "https://medialibrarycf.entrata.com/100108/MLv3/4/22/2025/10/20/012804/68f68d449a4038.02974923553.jpg",
               "IsDefault": true
             }
           ]
@@ -21745,7 +21745,7 @@
           "Name": "Dill",
           "PropertyId": 100011097,
           "UnitCount": "48",
-          "UnitsAvailable": "10",
+          "UnitsAvailable": "9",
           "UnitTypes": {
             "UnitType": [
               {
@@ -25528,7 +25528,7 @@
           "Name": "Carraway",
           "PropertyId": 100042446,
           "UnitCount": "67",
-          "UnitsAvailable": "0",
+          "UnitsAvailable": "1",
           "UnitTypes": {
             "UnitType": [
               {
@@ -29273,7 +29273,7 @@
           "Name": "Lavender",
           "PropertyId": 100011099,
           "UnitCount": "53",
-          "UnitsAvailable": "4",
+          "UnitsAvailable": "5",
           "UnitTypes": {
             "UnitType": [
               {
@@ -29554,7 +29554,7 @@
           "Name": "Anise",
           "PropertyId": 100011101,
           "UnitCount": "26",
-          "UnitsAvailable": "5",
+          "UnitsAvailable": "4",
           "UnitTypes": {
             "UnitType": [
               {
@@ -29588,7 +29588,7 @@
           },
           "MarketRent": {
             "@attributes": {
-              "Max": 1820,
+              "Max": 1810,
               "Min": 1810
             }
           },
