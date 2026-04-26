@@ -1,5 +1,5 @@
 {
-  "__generatedAt": "2026-04-25T04:03:09.089Z",
+  "__generatedAt": "2026-04-26T04:15:40.659Z",
   "__propertyCount": 34,
   "properties": [
     {
@@ -6154,7 +6154,7 @@
           "PropertyId": 100011089,
           "Comment": "Saffron",
           "UnitCount": "15",
-          "UnitsAvailable": "3",
+          "UnitsAvailable": "4",
           "UnitTypes": {
             "UnitType": [
               {
@@ -6579,7 +6579,7 @@
           "PropertyId": 100011089,
           "Comment": "Bayleave",
           "UnitCount": "11",
-          "UnitsAvailable": "2",
+          "UnitsAvailable": "3",
           "UnitTypes": {
             "UnitType": [
               {
@@ -7951,7 +7951,7 @@
           "Name": "Myrtle",
           "PropertyId": 100011093,
           "UnitCount": "29",
-          "UnitsAvailable": "9",
+          "UnitsAvailable": "8",
           "UnitTypes": {
             "UnitType": [
               {
@@ -9361,7 +9361,7 @@
           "Name": "Ginger",
           "PropertyId": 100027881,
           "UnitCount": "98",
-          "UnitsAvailable": "8",
+          "UnitsAvailable": "7",
           "UnitTypes": {
             "UnitType": [
               {
@@ -14980,7 +14980,7 @@
           "Name": "Caraway",
           "PropertyId": 100063757,
           "UnitCount": "98",
-          "UnitsAvailable": "16",
+          "UnitsAvailable": "15",
           "UnitTypes": {
             "UnitType": [
               {
@@ -20584,7 +20584,7 @@
           "Name": "Nutmeg",
           "PropertyId": 100011081,
           "UnitCount": "26",
-          "UnitsAvailable": "7",
+          "UnitsAvailable": "6",
           "UnitTypes": {
             "UnitType": [
               {
@@ -22103,7 +22103,7 @@
           "Name": "Chicory",
           "PropertyId": 100011098,
           "UnitCount": "7",
-          "UnitsAvailable": "1",
+          "UnitsAvailable": "0",
           "UnitTypes": {
             "UnitType": [
               {
@@ -22137,8 +22137,8 @@
           },
           "MarketRent": {
             "@attributes": {
-              "Max": 2522,
-              "Min": 2522
+              "Max": 2636,
+              "Min": 2561
             }
           },
           "Deposit": {
@@ -29380,7 +29380,7 @@
           "PropertyId": 100011100,
           "Comment": "Sage",
           "UnitCount": "52",
-          "UnitsAvailable": "3",
+          "UnitsAvailable": "2",
           "UnitTypes": {
             "UnitType": [
               {
@@ -29672,7 +29672,7 @@
           },
           "MarketRent": {
             "@attributes": {
-              "Max": 1999,
+              "Max": 1969,
               "Min": 1870
             }
           },
