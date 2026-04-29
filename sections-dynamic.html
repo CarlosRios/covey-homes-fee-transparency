@@ -106,7 +106,7 @@
     <div class="site-hero__content">
       <h1 class="site-hero__title">Dynamic Fees</h1>
       <div class="dyn-live-note-row">
-        <p class="dyn-live-note" id="dyn-hero-note">Loading live data from Entrata…</p>
+        <p class="dyn-live-note" id="dyn-hero-note">Loading fee data…</p>
       </div>
     </div>
   </div>
@@ -121,15 +121,15 @@
   </div>
 
   <main id="dyn-root">
-    <div class="dyn-loading">Loading properties from Entrata…</div>
+    <div class="dyn-loading">Loading properties…</div>
   </main>
 
   <script>
-    // Default: Covey Homes Loganville — richest fee set. Overridable via URL hash.
+    // Default property — overridable via URL hash (#<propertyId>).
     const DEFAULT_PROPERTY_ID = '100027881';
+    const INDEX_URL = 'data/properties.json';
 
     // ─── helpers ────────────────────────────────────────────────────────────
-    const asArray = (v) => v == null ? [] : Array.isArray(v) ? v : [v];
     const fmtMoney = (n) => {
       if (n == null || n === '') return '';
       const num = Number(String(n).replace(/[^0-9.\-]/g, ''));
@@ -137,96 +137,87 @@
       return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
     };
 
-    // The API returns one row per (lease term × applicant type). Collapse to unique.
-    function dedupeFees(rows) {
-      const map = new Map();
-      for (const r of rows) {
-        const key = [r.chargeCodeName, r.chargeTiming, r.detailedAmount, r.isOptional, r.isRefundable].join('|');
-        if (!map.has(key)) map.set(key, { rep: { ...r }, customers: new Set(), terms: new Set() });
-        const g = map.get(key);
-        if (r.customerRelationshipName) g.customers.add(r.customerRelationshipName);
-        if (r.leaseTerm) g.terms.add(r.leaseTerm);
-      }
-      return [...map.values()].map((g) => ({
-        ...g.rep,
-        __customers: [...g.customers],
-        __terms: [...g.terms],
-      }));
-    }
-
-    // Classify each fee into one of the known section buckets.
+    // Classify a fee into a section bucket. Skip rent (not a fee).
+    // Returns null to drop the row entirely.
     function categorize(fee) {
-      const name = (fee.chargeCodeName || '').toLowerCase();
-      const cat = (fee.entrataCategory || '').toLowerCase();
-      if (cat === 'pet' || /\bpet\b/.test(name)) return 'pets';
-      if (/bundle|livemore/.test(name)) return 'bundle';
-      if (/utilit|water|sewer|electric|trash|garbage|internet|wifi/.test(name)) return 'utilities';
-      if (/parking/.test(name)) return 'parking';
-      if (/rent.?report|homebody/.test(name)) return 'rent-reporting';
-      if (/application|admin|administrative|move.?in/.test(name)) return 'application';
-      if (fee.isOptional === '1' || /late|nsf|eviction|termination|transfer|violation|insurance|processing|\bkey\b|\bfob\b/.test(name)) return 'situational';
-      return 'other';
+      const cat = (fee.category || '').toLowerCase();
+      const name = (fee.name || '').toLowerCase();
+      const desc = (fee.description || '').toLowerCase();
+      const text = name + ' ' + desc;
+
+      // Drop pure rent rows — they're per-unit pricing, not fees.
+      if (/gross potential|market rent/.test(text) || /^rent$/.test(name)) return null;
+
+      if (cat === 'pet' || /\bpet\b/.test(text)) return 'pets';
+      if (/security deposit/.test(text)) return 'application';
+      if (/bundle|livemore/.test(text)) return 'bundle';
+      if (/trash|water|sewer|electric|garbage|internet|wifi|utilit/.test(text)) return 'utilities';
+      if (/parking/.test(text)) return 'parking';
+      if (/rent.?report|homebody/.test(text)) return 'rent-reporting';
+      if (/application|admin|administrative|move.?in/.test(text)) return 'application';
+      // late/nsf/transfer/m2m/eviction/etc.
+      return 'situational';
     }
 
-    function feeToRow(fee) {
-      const money = fmtMoney(fee.detailedAmount ?? fee.rateAmount);
-      const isMonthly = /monthly/i.test(fee.chargeTiming || '');
-      const isApp = /application/i.test(fee.chargeTiming || '');
+    function feeRow(fee) {
+      const isMonthly = /monthly/i.test(fee.timing || '');
+      const isApp = /application/i.test(fee.timing || '');
+      const amt = fee.amount;
+      let amount = amt == null ? 'Varies' : fmtMoney(amt);
       let small = '';
-      if (isMonthly) small = '/ mo';
-      else if (isApp && fee.__customers?.length >= 2) small = 'per applicant';
-      else if (isApp) small = 'per unit';
-      const note = fee.isRefundable === '0' && !isMonthly ? 'Non-refundable' : null;
-      return { label: fee.chargeCodeName, amount: money, small, note };
-    }
-
-    // Security deposits grouped by bedroom count (from getFloorPlans).
-    function depositRowsFromFloorPlans(floorPlans) {
-      const groups = new Map();
-      for (const fp of asArray(floorPlans)) {
-        const beds = asArray(fp.Room).find((r) => r['@attributes']?.RoomType === 'Bedroom')?.Count;
-        const dep = fp.Deposit?.Amount?.ValueRange?.['@attributes'];
-        if (!beds || !dep) continue;
-        if (!groups.has(String(beds))) groups.set(String(beds), new Set());
-        groups.get(String(beds)).add(dep.Min);
-        groups.get(String(beds)).add(dep.Max);
+      if (amt != null && isMonthly) small = '/ mo';
+      else if (amt != null && isApp) {
+        small = (fee.customerTypes && fee.customerTypes.length >= 2) ? 'per applicant' : 'per unit';
       }
-      const out = [];
-      for (const [beds, set] of [...groups.entries()].sort((a, b) => +a[0] - +b[0])) {
-        const nums = [...set].map(Number).filter(Number.isFinite).sort((a, b) => a - b);
-        if (!nums.length) continue;
-        const val = nums[0] === nums[nums.length - 1]
-          ? fmtMoney(nums[0])
-          : `${fmtMoney(nums[0])} – ${fmtMoney(nums[nums.length - 1])}`;
-        out.push({ label: `Security Deposit — ${beds} Bed`, amount: val, small: '' });
+      const note = (amt != null && fee.refundable === false && !isMonthly) ? 'Non-refundable' : null;
+      const label = fee.name || fee.description || 'Fee';
+      return { label, amount, small, note };
+    }
+
+    // Security Deposits live in the per-fee list at level=unittype. Collapse
+    // identical deposit amounts that span multiple unit types into a single
+    // "Security Deposit — $650" row, and show ranges when they differ.
+    function depositRows(fees) {
+      const deposits = fees.filter((f) =>
+        /security deposit/i.test(f.name || '') || /security deposit/i.test(f.description || '')
+      );
+      if (!deposits.length) return [];
+      const amounts = [...new Set(deposits.map((f) => f.amount).filter((a) => a != null))].sort((a, b) => a - b);
+      if (amounts.length === 0) return [{ label: 'Security Deposit', amount: 'Varies', small: '' }];
+      if (amounts.length === 1) {
+        return [{ label: 'Security Deposit', amount: fmtMoney(amounts[0]), small: 'per unit', note: 'Refundable' }];
       }
-      return out;
+      const lo = amounts[0], hi = amounts[amounts.length - 1];
+      return [{
+        label: 'Security Deposit',
+        amount: `${fmtMoney(lo)} – ${fmtMoney(hi)}`,
+        small: 'varies by unit type',
+        note: 'Refundable',
+      }];
     }
 
-    function formatAddress(a) {
-      if (!a) return '';
-      return [a.Address, [a.City, a.State].filter(Boolean).join(', '), a.PostalCode].filter(Boolean).join(', ');
-    }
+    function buildSections(propertyData) {
+      const fees = Array.isArray(propertyData?.fees) ? propertyData.fees : [];
 
-    // ─── build a normalized section model from the API response ─────────────
-    function buildSections(data) {
-      const raw = asArray(data?.fees?.propertyFees);
-      const fees = dedupeFees(raw);
-      const bucket = { application: [], pets: [], utilities: [], 'rent-reporting': [], situational: [], parking: [], bundle: [], other: [] };
-      for (const f of fees) bucket[categorize(f)].push(f);
+      const bucket = { application: [], pets: [], utilities: [], 'rent-reporting': [], situational: [], parking: [], bundle: [] };
+      for (const f of fees) {
+        // Security deposits handled separately below to collapse unit-type duplicates.
+        if (/security deposit/i.test(f.name || '')) continue;
+        const b = categorize(f);
+        if (b && bucket[b]) bucket[b].push(f);
+      }
 
-      // Pull security deposits out of floor plan data so the Application section has them.
-      const deposits = depositRowsFromFloorPlans(data?.floorPlans);
+      const sortRows = (rows) => rows.sort((a, b) => a.label.localeCompare(b.label));
 
       return [
         { id: 'application', title: 'Application & Move-In',
-          rows: [...bucket.application.map(feeToRow), ...deposits] },
-        { id: 'pets', title: 'Pets', rows: bucket.pets.map(feeToRow) },
-        { id: 'utilities', title: 'Utilities', rows: bucket.utilities.map(feeToRow) },
-        { id: 'rent-reporting', title: 'Rent Reporting', rows: bucket['rent-reporting'].map(feeToRow) },
-        { id: 'situational', title: 'Situational Fees', rows: bucket.situational.map(feeToRow) },
-        { id: 'parking', title: 'Parking', rows: bucket.parking.map(feeToRow) },
-        { id: 'bundle', title: 'Monthly Bundles', rows: bucket.bundle.map(feeToRow), accent: true },
+          rows: sortRows([...bucket.application.map(feeRow), ...depositRows(fees)]) },
+        { id: 'pets', title: 'Pets', rows: sortRows(bucket.pets.map(feeRow)) },
+        { id: 'utilities', title: 'Utilities', rows: sortRows(bucket.utilities.map(feeRow)) },
+        { id: 'rent-reporting', title: 'Rent Reporting', rows: sortRows(bucket['rent-reporting'].map(feeRow)) },
+        { id: 'situational', title: 'Situational Fees', rows: sortRows(bucket.situational.map(feeRow)) },
+        { id: 'parking', title: 'Parking', rows: sortRows(bucket.parking.map(feeRow)) },
+        { id: 'bundle', title: 'Monthly Bundles', rows: sortRows(bucket.bundle.map(feeRow)), accent: true },
       ];
     }
 
@@ -306,8 +297,9 @@
     }
 
     // ─── main ───────────────────────────────────────────────────────────────
-    let snapshot = null;           // full snapshot loaded once from static JSON
-    let currentLoadToken = 0;      // guards against race when user switches quickly
+    let propertyIndex = [];        // [{ id, name, address, file }]
+    const propertyCache = new Map(); // id -> loaded property JSON
+    let currentLoadToken = 0;        // guards against race when user switches quickly
 
     function propertyIdFromHash() {
       const m = (location.hash || '').match(/^#(\d+)$/);
@@ -323,125 +315,95 @@
       ));
     }
 
-    function allProperties() {
-      return snapshot?.properties ?? [];
-    }
-
     function populateSelector() {
       const select = document.getElementById('dyn-property-select');
-      const sorted = [...allProperties()].sort((a, b) => (a.MarketingName || '').localeCompare(b.MarketingName || ''));
+      const sorted = [...propertyIndex].sort((a, b) => (a.name || '').localeCompare(b.name || ''));
       select.innerHTML = '';
       for (const p of sorted) {
         const opt = document.createElement('option');
-        opt.value = String(p.PropertyID);
-        const label = p.MarketingName || `Property ${p.PropertyID}`;
-        opt.textContent = p.IsDisabled === '1' ? `${label} (disabled)` : label;
+        opt.value = String(p.id);
+        opt.textContent = p.name || `Property ${p.id}`;
         select.append(opt);
       }
       select.addEventListener('change', () => {
         location.hash = `#${select.value}`;
       });
-      document.getElementById('dyn-picker-band').style.display = 'block';
+      document.getElementById('dyn-picker-band').style.display =
+        propertyIndex.length > 1 ? 'block' : 'none';
     }
 
     function selectedId() {
-      const props = allProperties();
       const fromHash = propertyIdFromHash();
-      if (fromHash && props.some((p) => String(p.PropertyID) === fromHash)) return fromHash;
-      if (props.some((p) => String(p.PropertyID) === DEFAULT_PROPERTY_ID)) return DEFAULT_PROPERTY_ID;
-      return props[0] && String(props[0].PropertyID);
+      if (fromHash && propertyIndex.some((p) => String(p.id) === fromHash)) return fromHash;
+      if (propertyIndex.some((p) => String(p.id) === DEFAULT_PROPERTY_ID)) return DEFAULT_PROPERTY_ID;
+      return propertyIndex[0] && String(propertyIndex[0].id);
     }
 
-    function loadProperty(propertyId) {
+    async function loadProperty(propertyId) {
       const token = ++currentLoadToken;
-
-      // Sync the picker's visible value with the active property.
-      const select = document.getElementById('dyn-property-select');
-      if (select && select.value !== String(propertyId)) select.value = String(propertyId);
-
-      const propData = allProperties().find((p) => String(p.PropertyID) === String(propertyId));
-      if (!propData) {
-        showError(`Property ${propertyId} not found in snapshot.`);
+      const meta = propertyIndex.find((p) => String(p.id) === String(propertyId));
+      if (!meta) {
+        showError(`Property ${propertyId} not found in index.`);
         return;
       }
 
-      if (token !== currentLoadToken) return;
-      render(propData, propertyId);
-    }
-
-    function render(propData, propertyId) {
-      // Normalize snapshot property shape to match what buildSections / render expect.
-      const data = {
-        property: propData,
-        floorPlans: propData.floorPlans,
-        fees: propData.fees,
-      };
-
-      const sections = buildSections(data);
-      const name = propData.MarketingName || 'Property';
-      const addr = formatAddress(propData.Address) || '';
-      const generated = snapshot?.__generatedAt
-        ? new Date(snapshot.__generatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-        : new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-      const eyebrow = name;
-      const headline = 'Complete Fee Breakdown';
-      const feesErr = propData?.fees?.__error;
-      const feesCode = propData?.fees?.__code
-        ?? (feesErr && /"code":\s*(\d+)/.exec(feesErr)?.[1]);
-      const noFeesConfigured = String(feesCode) === '310'
-        || /no applicable fees configured/i.test(feesErr || '');
-      let subhead;
-      if (noFeesConfigured) {
-        subhead = `${addr} &middot; No fees configured for this property &middot; Updated ${generated}`;
-      } else if (feesErr) {
-        subhead = `${addr} &middot; Unable to load fees${feesCode ? ` (code ${feesCode})` : ''} &middot; Updated ${generated}`;
-      } else {
-        subhead = `${addr} &middot; Updated ${generated}`;
-      }
-
-      document.getElementById('dyn-hero-note').textContent = `Live data from Entrata · Property ID ${propData.PropertyID || propertyId}`;
+      const select = document.getElementById('dyn-property-select');
+      if (select && select.value !== String(propertyId)) select.value = String(propertyId);
 
       const root = document.getElementById('dyn-root');
       root.innerHTML = '';
-      root.append(renderTabs(sections, eyebrow, headline, subhead));
+      root.append(el('div', { class: 'dyn-loading' }, 'Loading fees…'));
+      document.getElementById('dyn-hero-note').textContent = `Loading ${meta.name || 'property'}…`;
+
+      try {
+        let data = propertyCache.get(propertyId);
+        if (!data) {
+          const url = 'data/' + meta.file;
+          const res = await fetch(url, { cache: 'no-cache' });
+          if (!res.ok) throw new Error(`HTTP ${res.status} loading ${url}`);
+          data = await res.json();
+          propertyCache.set(propertyId, data);
+        }
+        if (token !== currentLoadToken) return;
+        render(meta, data);
+      } catch (e) {
+        if (token !== currentLoadToken) return;
+        showError(e.message);
+      }
+    }
+
+    function render(meta, data) {
+      const sections = buildSections(data);
+      const name = data.__propertyName || meta.name || 'Property';
+      const addr = meta.address || '';
+      const generated = data.__generatedAt
+        ? new Date(data.__generatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+        : null;
+
+      const parts = [];
+      if (addr) parts.push(addr);
+      if (generated) parts.push(`Updated ${generated}`);
+      const subhead = parts.join(' &middot; ');
+
+      const totalRows = sections.reduce((n, s) => n + s.rows.length, 0);
+      document.getElementById('dyn-hero-note').textContent =
+        totalRows
+          ? `Showing ${totalRows} fees · Property ID ${meta.id}`
+          : `No fees configured · Property ID ${meta.id}`;
+
+      const root = document.getElementById('dyn-root');
+      root.innerHTML = '';
+      root.append(renderTabs(sections, name, 'Complete Fee Breakdown', subhead));
       wireInteractive(root);
     }
 
     async function init() {
       try {
-        // Try the local dev server's API first (faster dev iteration).
-        // Falls back to the static snapshot for GitHub Pages.
-        let loaded = false;
-
-        // Attempt local API
-        try {
-          const res = await fetch('/api/properties', { signal: AbortSignal.timeout(2000) });
-          if (res.ok) {
-            const props = await res.json();
-            if (Array.isArray(props) && props.length) {
-              // We're running on the local server — fetch fees live per-property.
-              snapshot = { __generatedAt: null, properties: props.map((p) => ({ ...p, fees: null, floorPlans: null })) };
-              loaded = true;
-              populateSelector();
-              window.addEventListener('hashchange', () => {
-                const id = selectedId();
-                if (id) loadPropertyLive(id);
-              });
-              const id = selectedId();
-              if (id) loadPropertyLive(id);
-              return;
-            }
-          }
-        } catch { /* not on local server, fall through */ }
-
-        // Static snapshot (GitHub Pages)
-        const res = await fetch('data/entrata-snapshot.json');
-        if (!res.ok) throw new Error(`HTTP ${res.status} loading snapshot`);
-        snapshot = await res.json();
-        if (!Array.isArray(snapshot?.properties) || !snapshot.properties.length) {
-          throw new Error('Snapshot is empty or malformed');
-        }
-        loaded = true;
+        const res = await fetch(INDEX_URL, { cache: 'no-cache' });
+        if (!res.ok) throw new Error(`HTTP ${res.status} loading ${INDEX_URL}`);
+        const idx = await res.json();
+        propertyIndex = Array.isArray(idx?.properties) ? idx.properties : [];
+        if (!propertyIndex.length) throw new Error('No properties listed in data/properties.json');
       } catch (e) {
         showError(e.message);
         return;
@@ -454,38 +416,6 @@
       });
       const id = selectedId();
       if (id) loadProperty(id);
-    }
-
-    // Live-fetch path for local dev server only.
-    async function loadPropertyLive(propertyId) {
-      const token = ++currentLoadToken;
-
-      const select = document.getElementById('dyn-property-select');
-      if (select && select.value !== String(propertyId)) select.value = String(propertyId);
-
-      document.getElementById('dyn-hero-note').textContent = `Loading live fees from Entrata · Property ID ${propertyId}…`;
-
-      const root = document.getElementById('dyn-root');
-      root.innerHTML = '';
-      root.append(el('div', { class: 'dyn-loading' }, 'Fetching fees…'));
-
-      try {
-        const res = await fetch(`/api/property/${propertyId}`);
-        if (token !== currentLoadToken) return;
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        if (token !== currentLoadToken) return;
-        // Normalize into snapshot property shape for render()
-        const propData = {
-          ...(asArray(data.property)[0] || {}),
-          floorPlans: data.floorPlans,
-          fees: data.fees,
-        };
-        render(propData, propertyId);
-      } catch (e) {
-        if (token !== currentLoadToken) return;
-        showError(e.message);
-      }
     }
 
     init();
