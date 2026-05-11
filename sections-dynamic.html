@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Covey Homes — Dynamic Fee Sections</title>
+  <title>Covey Homes — Fee Transparency</title>
   <link rel="stylesheet" href="page.css" />
   <style>
     /* Stack the h1 and the "live data" pill vertically in the hero — the
@@ -98,13 +98,12 @@
         </a>
         <nav class="site-header__nav">
           <a href="popups.html" class="nav-btn">Popups</a>
-          <a href="sections.html" class="nav-btn">Fees Sections</a>
-          <a href="sections-dynamic.html" class="nav-btn nav-btn--active">Dynamic Sections</a>
+          <a href="sections-dynamic.html" class="nav-btn nav-btn--active">Fee Transparency</a>
         </nav>
       </div>
     </header>
     <div class="site-hero__content">
-      <h1 class="site-hero__title">Dynamic Fees</h1>
+      <h1 class="site-hero__title">Fee Transparency</h1>
       <div class="dyn-live-note-row">
         <p class="dyn-live-note" id="dyn-hero-note">Loading fee data…</p>
       </div>
@@ -149,12 +148,12 @@
       if (/gross potential|market rent/.test(text) || /^rent$/.test(name)) return null;
 
       if (cat === 'pet' || /\bpet\b/.test(text)) return 'pets';
-      if (/security deposit/.test(text)) return 'application';
       if (/bundle|livemore/.test(text)) return 'bundle';
       if (/trash|water|sewer|electric|garbage|internet|wifi|utilit/.test(text)) return 'utilities';
       if (/parking/.test(text)) return 'parking';
       if (/rent.?report|homebody/.test(text)) return 'rent-reporting';
-      if (/application|admin|administrative|move.?in/.test(text)) return 'application';
+      if (/application/.test(text)) return 'before-apply';
+      if (/security deposit|admin|administrative|move.?in|holding/.test(text)) return 'get-started';
       // late/nsf/transfer/m2m/eviction/etc.
       return 'situational';
     }
@@ -199,7 +198,7 @@
     function buildSections(propertyData) {
       const fees = Array.isArray(propertyData?.fees) ? propertyData.fees : [];
 
-      const bucket = { application: [], pets: [], utilities: [], 'rent-reporting': [], situational: [], parking: [], bundle: [] };
+      const bucket = { 'before-apply': [], 'get-started': [], pets: [], utilities: [], 'rent-reporting': [], situational: [], parking: [], bundle: [] };
       for (const f of fees) {
         // Security deposits handled separately below to collapse unit-type duplicates.
         if (/security deposit/i.test(f.name || '')) continue;
@@ -210,14 +209,15 @@
       const sortRows = (rows) => rows.sort((a, b) => a.label.localeCompare(b.label));
 
       return [
-        { id: 'application', title: 'Application & Move-In',
-          rows: sortRows([...bucket.application.map(feeRow), ...depositRows(fees)]) },
-        { id: 'pets', title: 'Pets', rows: sortRows(bucket.pets.map(feeRow)) },
-        { id: 'utilities', title: 'Utilities', rows: sortRows(bucket.utilities.map(feeRow)) },
+        { id: 'before-apply', title: 'Before You Apply', rows: sortRows(bucket['before-apply'].map(feeRow)) },
+        { id: 'get-started', title: 'Get Started',
+          rows: sortRows([...bucket['get-started'].map(feeRow), ...depositRows(fees)]) },
         { id: 'rent-reporting', title: 'Rent Reporting', rows: sortRows(bucket['rent-reporting'].map(feeRow)) },
-        { id: 'situational', title: 'Situational Fees', rows: sortRows(bucket.situational.map(feeRow)) },
+        { id: 'utilities', title: 'Utilities', rows: sortRows(bucket.utilities.map(feeRow)) },
+        { id: 'pets', title: 'Pets', rows: sortRows(bucket.pets.map(feeRow)) },
         { id: 'parking', title: 'Parking', rows: sortRows(bucket.parking.map(feeRow)) },
-        { id: 'bundle', title: 'Monthly Bundles', rows: sortRows(bucket.bundle.map(feeRow)), accent: true },
+        { id: 'situational', title: 'Other Considerations', rows: sortRows(bucket.situational.map(feeRow)) },
+        { id: 'bundle', title: 'LiveMORE Bundle', rows: sortRows(bucket.bundle.map(feeRow)), accent: true },
       ];
     }
 
@@ -380,10 +380,7 @@
         ? new Date(data.__generatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
         : null;
 
-      const parts = [];
-      if (addr) parts.push(addr);
-      if (generated) parts.push(`Updated ${generated}`);
-      const subhead = parts.join(' &middot; ');
+      const subhead = addr || '';
 
       const totalRows = sections.reduce((n, s) => n + s.rows.length, 0);
       document.getElementById('dyn-hero-note').textContent =
@@ -393,7 +390,7 @@
 
       const root = document.getElementById('dyn-root');
       root.innerHTML = '';
-      root.append(renderTabs(sections, name, 'Complete Fee Breakdown', subhead));
+      root.append(renderTabs(sections, '', 'Complete Fee Breakdown', subhead));
       wireInteractive(root);
     }
 
