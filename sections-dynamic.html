@@ -242,9 +242,7 @@
       const section = el('section', { class: 'fees-section fees-section--light', id: 'fees-tabs' });
       const container = el('div', { class: 'fees-container fees-tabs-layout' });
       const left = el('div', { class: 'fees-tabs-left' },
-        el('span', { class: 'fees-eyebrow' }, eyebrow),
-        el('h2', { class: 'fees-headline' }, headline),
-        el('p', { class: 'fees-subhead', html: subhead }));
+        el('h2', { class: 'fees-headline' }, headline));
       const tabs = el('nav', { class: 'fee-tabs', role: 'tablist' });
       for (let i = 0; i < sections.length; i++) {
         const s = sections[i];
