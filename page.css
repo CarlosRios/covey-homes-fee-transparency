@@ -1088,11 +1088,19 @@ h6 { font-size: 0.875rem; line-height: 1.4; }
 }
 
 .fee-tab--accent {
-  color: var(--green);
+  background: var(--green);
+  color: #fff;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-bottom-color: var(--green);
+}
+
+.fee-tab--accent:hover {
+  color: #fff;
 }
 
 .fee-tab--accent.fee-tab--active {
-  color: var(--green);
+  color: #fff;
   border-left-color: var(--green);
 }
 
