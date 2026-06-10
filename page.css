@@ -1146,6 +1146,49 @@ h6 { font-size: 0.875rem; line-height: 1.4; }
   color: var(--charcoal);
 }
 
+.fee-panel__desc {
+  max-width: 34rem;
+  margin: 1rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-200);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: #6b6b6b;
+  text-align: left;
+}
+
+.fee-panel__desc p {
+  margin: 0;
+}
+
+.fee-panel__desc p + p {
+  margin-top: 0.35rem;
+}
+
+.fee-panel__desc ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.fee-panel__desc li + li {
+  margin-top: 0.25rem;
+}
+
+.fee-panel__desc--parking {
+  max-width: none;
+}
+
+.fee-panel__desc--parking .fee-panel__desc-nested {
+  margin: 0.15rem 0 0.45rem 2rem;
+  padding-left: 1.1rem;
+  list-style-type: "❖  ";
+}
+
+.fee-panel__desc-note {
+  margin-top: 1.25rem !important;
+  font-style: italic;
+}
+
 .fee-panel--accent {
   background: var(--green);
   border-color: var(--green);
@@ -1154,6 +1197,11 @@ h6 { font-size: 0.875rem; line-height: 1.4; }
 
 .fee-panel--accent .fee-panel__header h3 {
   color: var(--white);
+}
+
+.fee-panel--accent .fee-panel__desc {
+  border-top-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .fee-panel--accent .fee-badge {

@@ -209,15 +209,82 @@
       const sortRows = (rows) => rows.sort((a, b) => a.label.localeCompare(b.label));
 
       return [
-        { id: 'before-apply', title: 'Before You Apply', rows: sortRows(bucket['before-apply'].map(feeRow)) },
-        { id: 'get-started', title: 'Get Started',
-          rows: sortRows([...bucket['get-started'].map(feeRow), ...depositRows(fees)]) },
-        { id: 'rent-reporting', title: 'Rent Reporting', rows: sortRows(bucket['rent-reporting'].map(feeRow)) },
-        { id: 'utilities', title: 'Utilities', rows: sortRows(bucket.utilities.map(feeRow)) },
-        { id: 'pets', title: 'Pets', rows: sortRows(bucket.pets.map(feeRow)) },
-        { id: 'parking', title: 'Parking', rows: sortRows(bucket.parking.map(feeRow)) },
-        { id: 'situational', title: 'Other Considerations', rows: sortRows(bucket.situational.map(feeRow)) },
-        { id: 'bundle', title: 'LiveMORE Bundle', rows: sortRows(bucket.bundle.map(feeRow)), accent: true },
+        {
+          id: 'before-apply',
+          title: 'Before You Apply',
+          description: [
+            'A gross household income of 3 times the monthly rent.',
+            'Favorable credit history for all applicants.',
+            'Satisfactory rental history.',
+            'Identity verification, criminal background, and credit check will be performed on every lease-holding resident 18 years of age or older.',
+            'For more information regarding qualifying criteria, contact one of our associates.',
+          ],
+          rows: [],
+        },
+        {
+          id: 'get-started',
+          title: 'Get Started',
+          description: [
+            'If a renter is approved conditionally, they may be subject to additional requirements.',
+          ],
+          rows: sortRows([...bucket['get-started'].map(feeRow), ...depositRows(fees)]),
+        },
+        {
+          id: 'rent-reporting',
+          title: 'Rent Reporting',
+          description: [
+            'Start building your credit today.',
+            'Residents are automatically enrolled in a complimentary 30-day trial of Homebody Rent Reporting.',
+            'After the trial period, the service will continue unless canceled.',
+          ],
+          rows: sortRows(bucket['rent-reporting'].map(feeRow)),
+        },
+        {
+          id: 'utilities',
+          title: 'Utilities',
+          description: [
+            'Internet and cable are not provided for assets not offering WiFi or cable.',
+          ],
+          rows: sortRows(bucket.utilities.map(feeRow)),
+        },
+        {
+          id: 'pets',
+          title: 'Pets',
+          description: [
+            'Maximum 3 pets per home.',
+            'Breed restrictions apply.',
+            'No weight restriction.',
+          ],
+          rows: sortRows(bucket.pets.map(feeRow)),
+        },
+        {
+          id: 'parking',
+          title: 'Parking',
+          description: {
+            intro: 'Your home has at least 2 dedicated parking spaces:',
+            spaces: ['Garage', 'Driveway'],
+            body: [
+              'The garage must be used to park an operable vehicle. No street parking unless specifically designated.',
+              'Additional parking may be available at the community for an added monthly fee.',
+            ],
+            note: 'Note: Select homes may have an extended driveway to allow for added driveway spaces.',
+          },
+          rows: sortRows(bucket.parking.map(feeRow)),
+        },
+        {
+          id: 'situational',
+          title: 'Other Considerations',
+          description: [
+            'Plans can change, and residents should be aware that certain charges outlined in the lease may be applicable.',
+          ],
+          rows: sortRows(bucket.situational.map(feeRow)),
+        },
+        {
+          id: 'bundle',
+          title: 'LiveMORE Bundle',
+          rows: sortRows(bucket.bundle.map(feeRow)),
+          accent: true,
+        },
       ];
     }
 
@@ -236,6 +303,35 @@
       return n;
     };
     const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function descriptionLines(description) {
+      return Array.isArray(description) ? description : [description];
+    }
+
+    function renderDescription(description) {
+      if (!description) return null;
+      if (description.spaces) {
+        return el('div', { class: 'fee-panel__desc fee-panel__desc--parking' },
+          el('p', {}, description.intro),
+          el('ul', { class: 'fee-panel__desc-nested' },
+            ...description.spaces.map((space) => el('li', {}, space)),
+          ),
+          ...(description.body || []).map((line) => el('p', {}, line)),
+          description.note && el('p', { class: 'fee-panel__desc-note' }, description.note),
+        );
+      }
+
+      const lines = descriptionLines(description);
+      if (lines.length === 1) {
+        return el('div', { class: 'fee-panel__desc' }, el('p', {}, lines[0]));
+      }
+      if (lines.length > 1) {
+        return el('div', { class: 'fee-panel__desc' },
+          el('ul', {}, ...lines.map((line) => el('li', {}, line))),
+        );
+      }
+      return null;
+    }
 
     // ─── Tabs + Panels layout ───────────────────────────────────────────────
     function renderTabs(sections, eyebrow, headline, subhead) {
@@ -258,12 +354,13 @@
       const right = el('div', { class: 'fees-tabs-right' });
       for (let i = 0; i < sections.length; i++) {
         const s = sections[i];
+        const hasDescription = Boolean(s.description);
         const panel = el('div', {
           class: 'fee-panel' + (i === 0 ? ' fee-panel--active' : '') + (s.accent ? ' fee-panel--accent' : ''),
           id: `tab-${s.id}`,
         });
         panel.append(el('div', { class: 'fee-panel__header' }, el('h3', {}, s.title)));
-        if (!s.rows.length) {
+        if (!s.rows.length && !hasDescription) {
           panel.append(el('p', { class: 'fee-acc-note' }, 'Not currently available for this property.'));
         } else {
           for (const r of s.rows) {
@@ -272,6 +369,8 @@
             if (r.note) panel.append(el('p', { class: 'fee-acc-note' }, r.note));
           }
         }
+        const desc = renderDescription(s.description);
+        if (desc) panel.append(desc);
         right.append(panel);
       }
       container.append(left, right);
