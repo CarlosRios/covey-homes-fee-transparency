@@ -1,0 +1,279 @@
+{
+  "source_document": "MOREinfo Sheet - NEW (1) (1).pptx",
+  "property_context": {
+    "appears_specific_to": "Covey Homes Tallahassee / 1497 Wooster Drive community",
+    "address": "1497 Wooster Drive, Tallahassee, FL 32311",
+    "website": "coveyhomestallahassee.com",
+    "phone": "580.809.6034",
+    "document_dates_referenced": [
+      "10/2025",
+      "2/2026"
+    ],
+    "pricing_notice": "Prices subject to change."
+  },
+  "pricing": [
+    {
+      "category": "Application",
+      "item": "Application fee",
+      "amount": 75,
+      "currency": "USD",
+      "frequency": "one_time",
+      "unit": "per applicant",
+      "notes": "Due at time of application."
+    },
+    {
+      "category": "Application",
+      "item": "Administrative fee",
+      "amount": 250,
+      "currency": "USD",
+      "frequency": "one_time",
+      "unit": "per unit",
+      "notes": "Due at time of application. Refundable."
+    },
+    {
+      "category": "Deposit",
+      "item": "Security deposit - Two Bedrooms",
+      "amount": 650,
+      "currency": "USD",
+      "frequency": "one_time",
+      "unit": "per unit",
+      "notes": "Additional security deposit or requirements may apply if approved conditionally."
+    },
+    {
+      "category": "Deposit",
+      "item": "Security deposit - Three Bedrooms",
+      "amount": 750,
+      "currency": "USD",
+      "frequency": "one_time",
+      "unit": "per unit",
+      "notes": "Additional security deposit or requirements may apply if approved conditionally."
+    },
+    {
+      "category": "Bundle",
+      "item": "Livemore Bundle",
+      "amount": 115,
+      "currency": "USD",
+      "frequency": "monthly",
+      "unit": "per unit",
+      "notes": "Includes Smart Home Technology, Landscape Care, Amenity Access, and Pest Control."
+    },
+    {
+      "category": "Pets",
+      "item": "One-time pet fee - One Pet",
+      "amount": 350,
+      "currency": "USD",
+      "frequency": "one_time",
+      "unit": "one pet",
+      "notes": "Non-refundable. Maximum 3 pets per home/apartment home. Breed restrictions apply. No weight restriction."
+    },
+    {
+      "category": "Pets",
+      "item": "One-time pet fee - Two Pets",
+      "amount": 600,
+      "currency": "USD",
+      "frequency": "one_time",
+      "unit": "two pets",
+      "notes": "Non-refundable. Maximum 3 pets per home/apartment home. Breed restrictions apply. No weight restriction."
+    },
+    {
+      "category": "Pets",
+      "item": "One-time pet fee - Three Pets",
+      "amount": 850,
+      "currency": "USD",
+      "frequency": "one_time",
+      "unit": "three pets",
+      "notes": "Non-refundable. Maximum 3 pets per home/apartment home. Breed restrictions apply. No weight restriction."
+    },
+    {
+      "category": "Pets",
+      "item": "Monthly pet rent",
+      "amount": 25,
+      "currency": "USD",
+      "frequency": "monthly",
+      "unit": "per pet",
+      "notes": ""
+    },
+    {
+      "category": "Lease / Situational",
+      "item": "Transfer fee",
+      "amount": 500,
+      "currency": "USD",
+      "frequency": "one_time",
+      "unit": null,
+      "notes": "Listed as non-refundable in one section."
+    },
+    {
+      "category": "Lease / Situational",
+      "item": "Early lease termination / Lease break fee",
+      "amount": "1 month's rent",
+      "currency": "USD",
+      "frequency": "one_time",
+      "unit": null,
+      "notes": ""
+    },
+    {
+      "category": "Lease / Situational",
+      "item": "Replacement key",
+      "amount": 5,
+      "currency": "USD",
+      "frequency": "per_occurrence",
+      "unit": "per key",
+      "notes": "Listed as non-refundable in one section."
+    },
+    {
+      "category": "Lease / Situational",
+      "item": "Additional access fob",
+      "amount": 15,
+      "currency": "USD",
+      "frequency": "per_occurrence",
+      "unit": "per fob",
+      "notes": ""
+    },
+    {
+      "category": "Late / Violation",
+      "item": "Late fee",
+      "amount": "10% of one month's rent",
+      "currency": "USD",
+      "frequency": "per_occurrence",
+      "unit": null,
+      "notes": ""
+    },
+    {
+      "category": "Late / Violation",
+      "item": "Lease violation",
+      "amount_min": 25,
+      "amount_max": 150,
+      "currency": "USD",
+      "frequency": "per_occurrence",
+      "unit": null,
+      "notes": ""
+    },
+    {
+      "category": "Legal / Payment",
+      "item": "Legal / eviction fees",
+      "amount": "Varies",
+      "currency": "USD",
+      "frequency": "per_occurrence",
+      "unit": null,
+      "notes": ""
+    },
+    {
+      "category": "Insurance",
+      "item": "Forced renter's insurance",
+      "amount_min": 15,
+      "amount_max": 25,
+      "currency": "USD",
+      "frequency": "monthly",
+      "unit": null,
+      "notes": ""
+    },
+    {
+      "category": "Legal / Payment",
+      "item": "NSF fee / Returned payment fee",
+      "amount": 75,
+      "currency": "USD",
+      "frequency": "per_occurrence",
+      "unit": null,
+      "notes": ""
+    },
+    {
+      "category": "Legal / Payment",
+      "item": "Credit card processing fees",
+      "amount": "Varies",
+      "currency": "USD",
+      "frequency": "per_occurrence",
+      "unit": null,
+      "notes": ""
+    },
+    {
+      "category": "Utilities",
+      "item": "Trash removal",
+      "amount": "Varies by usage",
+      "currency": "USD",
+      "frequency": "monthly",
+      "unit": null,
+      "notes": ""
+    },
+    {
+      "category": "Utilities",
+      "item": "Utility billing admin fee",
+      "amount": 16,
+      "currency": "USD",
+      "frequency": "monthly",
+      "unit": "per unit",
+      "notes": "Also charged at account set-up and final billing."
+    },
+    {
+      "category": "Utilities",
+      "item": "Utility electric",
+      "amount": "Varies by usage",
+      "currency": "USD",
+      "frequency": "monthly",
+      "unit": null,
+      "notes": ""
+    },
+    {
+      "category": "Utilities",
+      "item": "Utility gas",
+      "amount": "Varies by usage",
+      "currency": "USD",
+      "frequency": "monthly",
+      "unit": null,
+      "notes": ""
+    },
+    {
+      "category": "Utilities",
+      "item": "Utility water/sewer",
+      "amount": "Varies by usage",
+      "currency": "USD",
+      "frequency": "monthly",
+      "unit": null,
+      "notes": ""
+    },
+    {
+      "category": "Utilities",
+      "item": "Internet Wi-Fi",
+      "amount": 70,
+      "currency": "USD",
+      "frequency": "monthly",
+      "unit": null,
+      "notes": "Document notes: Internet and cable not provided."
+    },
+    {
+      "category": "Rent Reporting",
+      "item": "Single leaseholder",
+      "amount": 8.95,
+      "currency": "USD",
+      "frequency": "monthly",
+      "unit": "single leaseholder",
+      "notes": "Residents are automatically enrolled in a complimentary 30-day trial of Homebody Rent Reporting; after the trial, service continues at the listed rate unless canceled."
+    },
+    {
+      "category": "Rent Reporting",
+      "item": "Multiple leaseholders",
+      "amount": 14.95,
+      "currency": "USD",
+      "frequency": "monthly",
+      "unit": "multiple leaseholders",
+      "notes": "Residents are automatically enrolled in a complimentary 30-day trial of Homebody Rent Reporting; after the trial, service continues at the listed rate unless canceled."
+    },
+    {
+      "category": "Qualification Requirement",
+      "item": "Gross household income requirement",
+      "amount": "3x monthly rent",
+      "currency": "USD",
+      "frequency": null,
+      "unit": "household",
+      "notes": "Qualification requirement, not a fee."
+    },
+    {
+      "category": "Parking",
+      "item": "Additional parking",
+      "amount": "Added monthly fee",
+      "currency": "USD",
+      "frequency": "monthly",
+      "unit": null,
+      "notes": "Exact amount not listed."
+    }
+  ]
+}

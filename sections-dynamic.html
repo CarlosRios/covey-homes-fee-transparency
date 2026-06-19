@@ -124,9 +124,10 @@
   </main>
 
   <script>
-    // Default property — overridable via URL hash (#<propertyId>).
-    const DEFAULT_PROPERTY_ID = '100027881';
-    const INDEX_URL = 'data/properties.json';
+    // Primary fee source. This page now reads from the client-provided JSON file
+    // placed at the project root instead of the generated RentCafe-style export.
+    const FEE_DATA_URL = 'covey_homes_fees.json';
+    const DEFAULT_PROPERTY_ID = 'covey-homes-fees';
 
     // ─── helpers ────────────────────────────────────────────────────────────
     const fmtMoney = (n) => {
@@ -136,39 +137,77 @@
       return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
     };
 
-    // Classify a fee into a section bucket. Skip rent (not a fee).
+    function normalizeFeeData(data) {
+      if (Array.isArray(data?.fees)) return data;
+      if (!Array.isArray(data?.pricing)) return { ...data, fees: [] };
+
+      return {
+        ...data,
+        __propertyName: data.property_context?.appears_specific_to || 'Covey Homes',
+        __propertyAddress: data.property_context?.address || '',
+        __lastUpdated: Array.isArray(data.property_context?.document_dates_referenced)
+          ? data.property_context.document_dates_referenced[data.property_context.document_dates_referenced.length - 1]
+          : null,
+        fees: data.pricing.map((item) => ({
+          category: item.category || '',
+          name: item.item || 'Fee',
+          description: item.item || item.notes || 'Fee',
+          timing: item.frequency || '',
+          amount: item.amount,
+          amount_min: item.amount_min,
+          amount_max: item.amount_max,
+          unit: item.unit,
+          notes: item.notes,
+          refundable: /non-refundable/i.test(item.notes || '') ? false : undefined,
+        })),
+      };
+    }
+
+    function amountLabel(fee) {
+      if (fee.amount_min != null && fee.amount_max != null) return `${fmtMoney(fee.amount_min)} – ${fmtMoney(fee.amount_max)}`;
+      if (fee.amount == null || fee.amount === '') return 'Varies';
+      return typeof fee.amount === 'number' ? fmtMoney(fee.amount) : String(fee.amount);
+    }
+
+    function unitLabel(fee) {
+      const unit = (fee.unit || '').trim();
+      const timing = (fee.timing || '').toLowerCase();
+      const monthly = timing === 'monthly' || /monthly|month/.test(timing);
+
+      if (unit) {
+        if (monthly && !/month|mo/i.test(unit)) return `${unit} / mo`;
+        return unit;
+      }
+      if (monthly) return '/ mo';
+      return '';
+    }
+
+    // Classify a fee into a section bucket. Skip rent and requirements (not fees).
     // Returns null to drop the row entirely.
     function categorize(fee) {
       const cat = (fee.category || '').toLowerCase();
       const name = (fee.name || '').toLowerCase();
       const desc = (fee.description || '').toLowerCase();
-      const text = name + ' ' + desc;
+      const text = cat + ' ' + name + ' ' + desc;
 
-      // Drop pure rent rows — they're per-unit pricing, not fees.
+      // Drop pure rent rows and qualification requirements — they're not fees.
       if (/gross potential|market rent/.test(text) || /^rent$/.test(name)) return null;
+      if (/qualification requirement/.test(cat) || /income requirement/.test(text)) return null;
 
-      if (cat === 'pet' || /\bpet\b/.test(text)) return 'pets';
+      if (cat === 'pet' || cat === 'pets' || /\bpet\b/.test(text)) return 'pets';
       if (/bundle|livemore/.test(text)) return 'bundle';
       if (/trash|water|sewer|electric|garbage|internet|wifi|utilit/.test(text)) return 'utilities';
       if (/parking/.test(text)) return 'parking';
       if (/rent.?report|homebody/.test(text)) return 'rent-reporting';
-      if (/application/.test(text)) return 'before-apply';
-      if (/security deposit|admin|administrative|move.?in|holding/.test(text)) return 'get-started';
+      if (/application|security deposit|admin|administrative|move.?in|holding|deposit/.test(text) || /application|deposit/.test(cat)) return 'get-started';
       // late/nsf/transfer/m2m/eviction/etc.
       return 'situational';
     }
 
     function feeRow(fee) {
-      const isMonthly = /monthly/i.test(fee.timing || '');
-      const isApp = /application/i.test(fee.timing || '');
-      const amt = fee.amount;
-      let amount = amt == null ? 'Varies' : fmtMoney(amt);
-      let small = '';
-      if (amt != null && isMonthly) small = '/ mo';
-      else if (amt != null && isApp) {
-        small = (fee.customerTypes && fee.customerTypes.length >= 2) ? 'per applicant' : 'per unit';
-      }
-      const note = (amt != null && fee.refundable === false && !isMonthly) ? 'Non-refundable' : null;
+      const amount = amountLabel(fee);
+      const small = unitLabel(fee);
+      const note = fee.notes || (fee.refundable === false && !/monthly/i.test(fee.timing || '') ? 'Non-refundable' : null);
       const label = fee.name || fee.description || 'Fee';
       return { label, amount, small, note };
     }
@@ -196,7 +235,8 @@
     }
 
     function buildSections(propertyData) {
-      const fees = Array.isArray(propertyData?.fees) ? propertyData.fees : [];
+      const normalized = normalizeFeeData(propertyData);
+      const fees = Array.isArray(normalized?.fees) ? normalized.fees : [];
 
       const bucket = { 'before-apply': [], 'get-started': [], pets: [], utilities: [], 'rent-reporting': [], situational: [], parking: [], bundle: [] };
       for (const f of fees) {
@@ -232,11 +272,7 @@
         {
           id: 'rent-reporting',
           title: 'Rent Reporting',
-          description: [
-            'Start building your credit today.',
-            'Residents are automatically enrolled in a complimentary 30-day trial of Homebody Rent Reporting.',
-            'After the trial period, the service will continue unless canceled.',
-          ],
+          description: 'Start building your credit today. Residents are automatically enrolled in a complimentary 30-day trial of Homebody Rent Reporting. After the trial period, the service will continue unless canceled.',
           rows: sortRows(bucket['rent-reporting'].map(feeRow)),
         },
         {
@@ -455,7 +491,7 @@
       try {
         let data = propertyCache.get(propertyId);
         if (!data) {
-          const url = 'data/' + meta.file;
+          const url = meta.file || FEE_DATA_URL;
           const res = await fetch(url, { cache: 'no-cache' });
           if (!res.ok) throw new Error(`HTTP ${res.status} loading ${url}`);
           data = await res.json();
@@ -470,20 +506,20 @@
     }
 
     function render(meta, data) {
-      const sections = buildSections(data);
-      const name = data.__propertyName || meta.name || 'Property';
-      const addr = meta.address || '';
-      const generated = data.__generatedAt
-        ? new Date(data.__generatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-        : null;
+      const normalized = normalizeFeeData(data);
+      const sections = buildSections(normalized);
+      const addr = normalized.__propertyAddress || meta.address || '';
+      const generated = normalized.__generatedAt
+        ? new Date(normalized.__generatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+        : normalized.__lastUpdated;
 
       const subhead = addr || '';
 
       const totalRows = sections.reduce((n, s) => n + s.rows.length, 0);
       document.getElementById('dyn-hero-note').textContent =
         totalRows
-          ? `Showing ${totalRows} fees · Property ID ${meta.id}`
-          : `No fees configured · Property ID ${meta.id}`;
+          ? `Showing ${totalRows} fees${generated ? ` · Updated ${generated}` : ''}`
+          : `No fees configured${generated ? ` · Updated ${generated}` : ''}`;
 
       const root = document.getElementById('dyn-root');
       root.innerHTML = '';
@@ -493,11 +529,17 @@
 
     async function init() {
       try {
-        const res = await fetch(INDEX_URL, { cache: 'no-cache' });
-        if (!res.ok) throw new Error(`HTTP ${res.status} loading ${INDEX_URL}`);
-        const idx = await res.json();
-        propertyIndex = Array.isArray(idx?.properties) ? idx.properties : [];
-        if (!propertyIndex.length) throw new Error('No properties listed in data/properties.json');
+        const res = await fetch(FEE_DATA_URL, { cache: 'no-cache' });
+        if (!res.ok) throw new Error(`HTTP ${res.status} loading ${FEE_DATA_URL}`);
+        const data = await res.json();
+        const normalized = normalizeFeeData(data);
+        propertyIndex = [{
+          id: DEFAULT_PROPERTY_ID,
+          name: normalized.__propertyName || 'Covey Homes',
+          address: normalized.__propertyAddress || '',
+          file: FEE_DATA_URL,
+        }];
+        propertyCache.set(DEFAULT_PROPERTY_ID, data);
       } catch (e) {
         showError(e.message);
         return;
