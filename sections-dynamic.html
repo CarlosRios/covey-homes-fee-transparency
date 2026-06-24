@@ -212,25 +212,24 @@
       return { label, amount, small, note };
     }
 
-    // Security Deposits live in the per-fee list at level=unittype. Collapse
-    // identical deposit amounts that span multiple unit types into a single
-    // "Security Deposit — $650" row, and show ranges when they differ.
+    // Security deposits should display as one combined row with the unit-type range.
     function depositRows(fees) {
       const deposits = fees.filter((f) =>
         /security deposit/i.test(f.name || '') || /security deposit/i.test(f.description || '')
       );
       if (!deposits.length) return [];
       const amounts = [...new Set(deposits.map((f) => f.amount).filter((a) => a != null))].sort((a, b) => a - b);
-      if (amounts.length === 0) return [{ label: 'Security Deposit', amount: 'Varies', small: '' }];
-      if (amounts.length === 1) {
-        return [{ label: 'Security Deposit', amount: fmtMoney(amounts[0]), small: 'per unit', note: 'Refundable' }];
+      if (!amounts.length) {
+        return [{ label: 'Security Deposit', amount: 'Varies', small: '', note: 'Due at lease signing. Refundable.' }];
       }
-      const lo = amounts[0], hi = amounts[amounts.length - 1];
+      const amount = amounts.length === 1
+        ? fmtMoney(amounts[0])
+        : `${fmtMoney(amounts[0])} – ${fmtMoney(amounts[amounts.length - 1])}`;
       return [{
         label: 'Security Deposit',
-        amount: `${fmtMoney(lo)} – ${fmtMoney(hi)}`,
-        small: 'varies by unit type',
-        note: 'Refundable',
+        amount,
+        small: amounts.length > 1 ? 'varies by unit type' : 'per unit',
+        note: 'Due at lease signing. Refundable.',
       }];
     }
 
@@ -246,7 +245,86 @@
         if (b && bucket[b]) bucket[b].push(f);
       }
 
-      const sortRows = (rows) => rows.sort((a, b) => a.label.localeCompare(b.label));
+      const rowsInSourceOrder = (fees) => fees.map(feeRow);
+      const withoutNotes = (rows) => rows.map((row) => ({ ...row, note: null }));
+      const orderedRows = (rows, patterns) => {
+        const remaining = [...rows];
+        const ordered = [];
+        for (const pattern of patterns) {
+          const idx = remaining.findIndex((row) => pattern.test(row.label));
+          if (idx >= 0) ordered.push(remaining.splice(idx, 1)[0]);
+        }
+        return [...ordered, ...remaining];
+      };
+      const relabelRows = (rows, replacements) => rows.map((row) => {
+        const match = replacements.find(([pattern]) => pattern.test(row.label));
+        if (!match) return row;
+        const label = typeof match[1] === 'function' ? match[1](row.label) : match[1];
+        return { ...row, label };
+      });
+      const monthlyOnly = (row) => ({ ...row, small: /\/ mo|monthly/i.test(row.small || '') ? '/ mo' : row.small });
+      const removeUnit = (row) => ({ ...row, small: '' });
+
+      const getStartedRows = orderedRows(
+        [...rowsInSourceOrder(bucket['get-started']), ...depositRows(fees)],
+        [/administrative fee/i, /application fee/i, /security deposit/i],
+      );
+
+      const rentReportingRows = relabelRows(
+        orderedRows(
+          withoutNotes(rowsInSourceOrder(bucket['rent-reporting'])),
+          [/single/i, /multiple/i],
+        ),
+        [
+          [/^Single leaseholder$/i, 'Single'],
+          [/^Multiple leaseholders$/i, 'Multiple'],
+        ],
+      ).map(monthlyOnly);
+
+      const utilityRows = relabelRows(
+        orderedRows(
+          withoutNotes(rowsInSourceOrder(bucket.utilities)),
+          [/billing admin|utility billing/i, /electric/i, /water\/sewer|water|sewer/i, /gas/i, /trash|garbage/i, /wi-?fi|internet/i],
+        ),
+        [
+          [/^Utility billing admin fee$/i, 'Billing admin fee'],
+          [/^Utility electric$/i, 'Electric'],
+          [/^Utility water\/sewer$/i, 'Water/sewer'],
+          [/^Utility gas$/i, 'Gas'],
+          [/^Trash removal$/i, 'Trash'],
+          [/^Internet Wi-?Fi$/i, 'WiFi'],
+        ],
+      ).map(monthlyOnly);
+
+      const petRows = relabelRows(
+        orderedRows(
+          withoutNotes(rowsInSourceOrder(bucket.pets)),
+          [/one-time pet fee - one pet|one pet/i, /one-time pet fee - two pets|two pets/i, /one-time pet fee - three pets|three pets/i, /monthly pet rent|pet rent/i],
+        ),
+        [
+          [/^One-time pet fee - One Pet$/i, 'One Pet'],
+          [/^One-time pet fee - Two Pets$/i, 'Two Pets'],
+          [/^One-time pet fee - Three Pets$/i, 'Three Pets'],
+          [/^Monthly pet rent$/i, 'Pet rent'],
+        ],
+      ).map((row) => /pet rent/i.test(row.label) ? monthlyOnly(row) : removeUnit(row));
+
+      const situationalRows = relabelRows(
+        rowsInSourceOrder(bucket.situational),
+        [
+          [/^Early lease termination \/ Lease break fee$/i, 'Early lease termination'],
+        ],
+      ).map((row) => {
+        const cleaned = /transfer fee|replacement key/i.test(row.label)
+          ? { ...row, note: null }
+          : row;
+        return /forced renter/i.test(cleaned.label) ? monthlyOnly(cleaned) : cleaned;
+      });
+      const bundleRows = rowsInSourceOrder(bucket.bundle).map((row) => ({
+        ...monthlyOnly(row),
+        label: 'Bundle cost',
+        note: null,
+      }));
 
       return [
         {
@@ -264,48 +342,46 @@
         {
           id: 'get-started',
           title: 'Get Started',
-          description: [
-            'If a renter is approved conditionally, they may be subject to additional requirements.',
-          ],
-          rows: sortRows([...bucket['get-started'].map(feeRow), ...depositRows(fees)]),
+          rows: getStartedRows,
+          disclaimer: 'If a renter is approved conditionally, they may be subject to additional requirements.',
         },
         {
           id: 'rent-reporting',
           title: 'Rent Reporting',
-          description: 'Start building your credit today. Residents are automatically enrolled in a complimentary 30-day trial of Homebody Rent Reporting. After the trial period, the service will continue unless canceled.',
-          rows: sortRows(bucket['rent-reporting'].map(feeRow)),
+          description: 'Start building your credit today.',
+          rows: rentReportingRows,
+          disclaimer: 'Residents are automatically enrolled in a complimentary 30-day trial of Homebody Rent Reporting. After the trial period, the service will continue at the listed rate unless canceled.',
         },
         {
           id: 'utilities',
           title: 'Utilities',
-          description: [
-            'Internet and cable are not provided for assets not offering WiFi or cable.',
-          ],
-          rows: sortRows(bucket.utilities.map(feeRow)),
+          description: 'At Covey Homes, our MORE Smooth Move program ensures most major utilities are already set up before you move in. No utility deposits, no scheduling service calls, and no waiting around for activation—we’ve taken care of everything so you can settle in stress-free.',
+          rows: utilityRows,
+          disclaimer: 'Internet and cable are not provided for assets not offering WiFi or cable.',
         },
         {
           id: 'pets',
           title: 'Pets',
           description: [
-            'Maximum 3 pets per home.',
+            'Maximum 3 pets per home/apartment home.',
             'Breed restrictions apply.',
             'No weight restriction.',
           ],
-          rows: sortRows(bucket.pets.map(feeRow)),
+          rows: petRows,
+          disclaimer: 'Non-refundable.',
         },
         {
           id: 'parking',
           title: 'Parking',
           description: {
-            intro: 'Your home has at least 2 dedicated parking spaces:',
+            intro: 'Your Home has at least 2 dedicated parking spaces:',
             spaces: ['Garage', 'Driveway'],
             body: [
               'The garage must be used to park an operable vehicle. No street parking unless specifically designated.',
-              'Additional parking may be available at the community for an added monthly fee.',
             ],
             note: 'Note: Select homes may have an extended driveway to allow for added driveway spaces.',
           },
-          rows: sortRows(bucket.parking.map(feeRow)),
+          rows: [],
         },
         {
           id: 'situational',
@@ -313,12 +389,15 @@
           description: [
             'Plans can change, and residents should be aware that certain charges outlined in the lease may be applicable.',
           ],
-          rows: sortRows(bucket.situational.map(feeRow)),
+          rows: situationalRows,
         },
         {
           id: 'bundle',
           title: 'LiveMORE Bundle',
-          rows: sortRows(bucket.bundle.map(feeRow)),
+          description: [
+            'Includes Smart Home Technology, Landscape Care, Amenity Access, and Pest Control.',
+          ],
+          rows: bundleRows,
           accent: true,
         },
       ];
@@ -396,6 +475,8 @@
           id: `tab-${s.id}`,
         });
         panel.append(el('div', { class: 'fee-panel__header' }, el('h3', {}, s.title)));
+        const desc = renderDescription(s.description);
+        if (desc) panel.append(desc);
         if (!s.rows.length && !hasDescription) {
           panel.append(el('p', { class: 'fee-acc-note' }, 'Not currently available for this property.'));
         } else {
@@ -405,8 +486,8 @@
             if (r.note) panel.append(el('p', { class: 'fee-acc-note' }, r.note));
           }
         }
-        const desc = renderDescription(s.description);
-        if (desc) panel.append(desc);
+        const disclaimer = renderDescription(s.disclaimer);
+        if (disclaimer) panel.append(disclaimer);
         right.append(panel);
       }
       container.append(left, right);
