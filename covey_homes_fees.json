@@ -201,7 +201,7 @@
       "currency": "USD",
       "frequency": "monthly",
       "unit": "per unit",
-      "notes": "Also charged at account set-up and final billing."
+      "notes": "Billing Admin Fee also charged at account set-up and final billing."
     },
     {
       "category": "Utilities",
@@ -237,7 +237,7 @@
       "currency": "USD",
       "frequency": "monthly",
       "unit": null,
-      "notes": "Document notes: Internet and cable not provided."
+      "notes": "Internet and cable not provided."
     },
     {
       "category": "Rent Reporting",

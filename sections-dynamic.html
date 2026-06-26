@@ -262,7 +262,10 @@
         const label = typeof match[1] === 'function' ? match[1](row.label) : match[1];
         return { ...row, label };
       });
-      const monthlyOnly = (row) => ({ ...row, small: /\/ mo|monthly/i.test(row.small || '') ? '/ mo' : row.small });
+      const monthlyOnly = (row) => {
+        if (/^varies/i.test(String(row.amount || ''))) return { ...row, small: '' };
+        return { ...row, small: /\/ mo|monthly/i.test(row.small || '') ? '/ mo' : row.small };
+      };
       const removeUnit = (row) => ({ ...row, small: '' });
 
       const getStartedRows = orderedRows(
@@ -287,7 +290,7 @@
           [/billing admin|utility billing/i, /electric/i, /water\/sewer|water|sewer/i, /gas/i, /trash|garbage/i, /wi-?fi|internet/i],
         ),
         [
-          [/^Utility billing admin fee$/i, 'Billing admin fee'],
+          [/^Utility billing admin fee$/i, 'Billing Admin Fee'],
           [/^Utility electric$/i, 'Electric'],
           [/^Utility water\/sewer$/i, 'Water/sewer'],
           [/^Utility gas$/i, 'Gas'],
@@ -302,9 +305,9 @@
           [/one-time pet fee - one pet|one pet/i, /one-time pet fee - two pets|two pets/i, /one-time pet fee - three pets|three pets/i, /monthly pet rent|pet rent/i],
         ),
         [
-          [/^One-time pet fee - One Pet$/i, 'One Pet'],
-          [/^One-time pet fee - Two Pets$/i, 'Two Pets'],
-          [/^One-time pet fee - Three Pets$/i, 'Three Pets'],
+          [/^One-time pet fee - One Pet$/i, 'One-Time Pet Fee – One Pet'],
+          [/^One-time pet fee - Two Pets$/i, 'One-Time Pet Fee – Two Pets'],
+          [/^One-time pet fee - Three Pets$/i, 'One-Time Pet Fee – Three Pets'],
           [/^Monthly pet rent$/i, 'Pet rent'],
         ],
       ).map((row) => /pet rent/i.test(row.label) ? monthlyOnly(row) : removeUnit(row));
@@ -357,7 +360,10 @@
           title: 'Utilities',
           description: 'At Covey Homes, our MORE Smooth Move program ensures most major utilities are already set up before you move in. No utility deposits, no scheduling service calls, and no waiting around for activation—we’ve taken care of everything so you can settle in stress-free.',
           rows: utilityRows,
-          disclaimer: 'Internet and cable are not provided for assets not offering WiFi or cable.',
+          disclaimer: [
+            'Billing Admin Fee also charged at account set-up and final billing.',
+            'Internet and cable not provided.',
+          ],
         },
         {
           id: 'pets',
