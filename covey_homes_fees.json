@@ -32,6 +32,15 @@
     },
     {
       "category": "Deposit",
+      "item": "Security deposit - One Bedroom",
+      "amount": 500,
+      "currency": "USD",
+      "frequency": "one_time",
+      "unit": "per unit",
+      "notes": "Additional security deposit or requirements may apply if approved conditionally."
+    },
+    {
+      "category": "Deposit",
       "item": "Security deposit - Two Bedrooms",
       "amount": 650,
       "currency": "USD",
@@ -43,6 +52,24 @@
       "category": "Deposit",
       "item": "Security deposit - Three Bedrooms",
       "amount": 750,
+      "currency": "USD",
+      "frequency": "one_time",
+      "unit": "per unit",
+      "notes": "Additional security deposit or requirements may apply if approved conditionally."
+    },
+    {
+      "category": "Deposit",
+      "item": "Security deposit - Four Bedrooms",
+      "amount": 850,
+      "currency": "USD",
+      "frequency": "one_time",
+      "unit": "per unit",
+      "notes": "Additional security deposit or requirements may apply if approved conditionally."
+    },
+    {
+      "category": "Deposit",
+      "item": "Security deposit - Five Bedrooms",
+      "amount": 1000,
       "currency": "USD",
       "frequency": "one_time",
       "unit": "per unit",

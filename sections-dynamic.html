@@ -212,25 +212,34 @@
       return { label, amount, small, note };
     }
 
-    // Security deposits should display as one combined row with the unit-type range.
+    // Security deposits should display as tiered bedroom-size rows.
     function depositRows(fees) {
+      const bedroomOrder = ['one', 'two', 'three', 'four', 'five'];
+      const bedroomLabels = {
+        one: 'One Bedroom',
+        two: 'Two Bedroom',
+        three: 'Three Bedroom',
+        four: 'Four Bedroom',
+        five: 'Five Bedroom',
+      };
       const deposits = fees.filter((f) =>
         /security deposit/i.test(f.name || '') || /security deposit/i.test(f.description || '')
       );
       if (!deposits.length) return [];
-      const amounts = [...new Set(deposits.map((f) => f.amount).filter((a) => a != null))].sort((a, b) => a - b);
-      if (!amounts.length) {
-        return [{ label: 'Security Deposit', amount: 'Varies', small: '', note: 'Due at lease signing. Refundable.' }];
-      }
-      const amount = amounts.length === 1
-        ? fmtMoney(amounts[0])
-        : `${fmtMoney(amounts[0])} – ${fmtMoney(amounts[amounts.length - 1])}`;
-      return [{
-        label: 'Security Deposit',
-        amount,
-        small: amounts.length > 1 ? 'varies by unit type' : 'per unit',
-        note: 'Due at lease signing. Refundable.',
-      }];
+
+      const rows = deposits.map((fee) => {
+        const text = `${fee.name || ''} ${fee.description || ''}`.toLowerCase();
+        const bedroomKey = bedroomOrder.find((key) => new RegExp(`\\b${key}\\b`).test(text));
+        return {
+          sort: bedroomKey ? bedroomOrder.indexOf(bedroomKey) : 99,
+          label: bedroomKey ? bedroomLabels[bedroomKey] : (fee.name || fee.description || 'Security Deposit'),
+          amount: amountLabel(fee),
+          small: '',
+          note: null,
+        };
+      });
+
+      return rows.sort((a, b) => a.sort - b.sort).map(({ sort, ...row }) => row);
     }
 
     function buildSections(propertyData) {
@@ -346,7 +355,10 @@
           id: 'get-started',
           title: 'Get Started',
           rows: getStartedRows,
-          disclaimer: 'If a renter is approved conditionally, they may be subject to additional requirements.',
+          disclaimer: [
+            'Due at lease signing. Refundable.',
+            'If a renter is approved conditionally, they may be subject to additional requirements.',
+          ],
         },
         {
           id: 'rent-reporting',
